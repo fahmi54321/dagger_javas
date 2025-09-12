@@ -1,0 +1,47 @@
+# ==== System files ====
+.DS_Store
+Thumbs.db
+
+# ==== IDE settings ====
+.idea/
+.vscode/
+*.iml
+
+# ==== Build outputs ====
+/build/
+/out/
+/bin/
+
+# ==== Gradle ====
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+
+# ==== Logs & temp ====
+*.log
+*.tmp
+*.swp
+*.swo
+
+# ==== Android specific ====
+captures/
+local.properties
+*.keystore
+*.jks
+
+# ==== Ignore other repos / projects outside ====
+../deep_learning/
+../dishub-esurat/
+../dishub-pad/
+../dlh-peranting/
+../eoffice-ios/
+../esurat_new/
+../kujang/
+../markov_model_new/
+../python/
+../riverpod/
+../swift/
+../wms_autonomous/
+
+# ==== Misc ====
+*.class
