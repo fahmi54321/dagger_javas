@@ -1,28 +1,17 @@
 package com.example.dagger_java.screens.questionslist;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.dagger_java.Constants;
-import com.example.dagger_java.R;
 import com.example.dagger_java.networking.QuestionsListResponseSchema;
 import com.example.dagger_java.networking.StackoverflowApi;
 import com.example.dagger_java.questions.Question;
 import com.example.dagger_java.screens.common.dialogs.ServerErrorDialogFragment;
 import com.example.dagger_java.screens.questiondetails.QuestionDetailsActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,29 +19,21 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class QuestionsListActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, QuestionsAdapter.OnQuestionClickListener {
+public class QuestionsListActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, QuestionsListViewMvc.Listener {
 
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView recyclerView;
-    private QuestionsAdapter questionsAdapter;
     private StackoverflowApi stackoverflowApi;
+
+    private QuestionsListViewMvc viewMvc;
 
     private boolean isDataLoaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_questions_list);
 
-        // init pull-down-to-refresh
-        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
-        swipeRefreshLayout.setOnRefreshListener(this);
+        viewMvc = new QuestionsListViewMvc(LayoutInflater.from(this), null);
 
-        // init recycler view
-        recyclerView = findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        questionsAdapter = new QuestionsAdapter(this);
-        recyclerView.setAdapter(questionsAdapter);
+        setContentView(viewMvc.rootView);
 
         // init retrofit
         Retrofit retrofit = new Retrofit.Builder()
@@ -66,9 +47,16 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
     @Override
     protected void onStart() {
         super.onStart();
+        viewMvc.registerListener(this);
         if (!isDataLoaded) {
             fetchQuestions();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        viewMvc.unregisterListener(this);
     }
 
     @Override
@@ -77,15 +65,15 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
     }
 
     private void fetchQuestions() {
-        showProgressIndication();
+        viewMvc.showProgressIndication();
 
         // Retrofit call (asynchronous)
         stackoverflowApi.lastActiveQuestions(20).enqueue(new Callback<QuestionsListResponseSchema>() {
             @Override
             public void onResponse(Call<QuestionsListResponseSchema> call, Response<QuestionsListResponseSchema> response) {
-                hideProgressIndication();
+                viewMvc.hideProgressIndication();
                 if (response.isSuccessful() && response.body() != null) {
-                    questionsAdapter.bindData(response.body().getQuestions());
+                    viewMvc.bindQuestions(response.body().getQuestions());
                     isDataLoaded = true;
                 } else {
                     onFetchFailed();
@@ -94,7 +82,7 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
 
             @Override
             public void onFailure(Call<QuestionsListResponseSchema> call, Throwable t) {
-                hideProgressIndication();
+                viewMvc.hideProgressIndication();
                 onFetchFailed();
             }
         });
@@ -106,19 +94,14 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
                 .commitAllowingStateLoss();
     }
 
-    private void showProgressIndication(){
-        swipeRefreshLayout.setRefreshing(true);
-    }
-
-    private void hideProgressIndication(){
-        if(swipeRefreshLayout.isRefreshing()){
-            swipeRefreshLayout.setRefreshing(false);
-        }
+    @Override
+    public void onRefreshClicked() {
+        fetchQuestions();
     }
 
     @Override
-    public void onQuestionClick(Question question) {
-        QuestionDetailsActivity.start(this, question.getId());
+    public void onQuestionClicked(Question clickedQuestion) {
+        QuestionDetailsActivity.start(this, clickedQuestion.getId());
     }
 }
 
