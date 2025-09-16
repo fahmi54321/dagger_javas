@@ -6,13 +6,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.LayoutInflater;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.dagger_java.Constants;
-import com.example.dagger_java.R;
 import com.example.dagger_java.networking.SingleQuestionResponseSchema;
 import com.example.dagger_java.networking.StackoverflowApi;
 import com.example.dagger_java.screens.common.dialogs.ServerErrorDialogFragment;
@@ -24,27 +22,19 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class QuestionDetailsActivity extends AppCompatActivity implements MyToolbar.NavigateUpListener {
+public class QuestionDetailsActivity extends AppCompatActivity implements MyToolbar.NavigateUpListener, QuestionDetailsMvc.Listener {
 
-    private MyToolbar toolbar;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private TextView txtQuestionBody;
     private StackoverflowApi stackoverflowApi;
     private String questionId;
+
+    private QuestionDetailsMvc viewMvc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_question_details);
 
-        txtQuestionBody = findViewById(R.id.txt_question_body);
-
-        // init toolbar
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigateUpListener(this);
-
-        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
-        swipeRefreshLayout.setEnabled(true);
+        viewMvc = new QuestionDetailsMvc(LayoutInflater.from(this),null);
+        setContentView(viewMvc.rootView);
 
         // inti retrofit
         Retrofit retrofit = new Retrofit.Builder()
@@ -76,30 +66,22 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
                 .commitAllowingStateLoss();
     }
 
-    private void showProgressIndication(){
-        swipeRefreshLayout.setRefreshing(true);
-    }
-
-    private void hideProgressIndication(){
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
     private void fetchQuestionDetails() {
-        showProgressIndication();
+        viewMvc.showProgressIndication();
 
         stackoverflowApi.questionDetails(questionId).enqueue(new Callback<SingleQuestionResponseSchema>() {
             @Override
             public void onResponse(Call<SingleQuestionResponseSchema> call, Response<SingleQuestionResponseSchema> response) {
-                hideProgressIndication();
+                viewMvc.hideProgressIndication();
 
                 if (response.isSuccessful() && response.body() != null) {
                     String questionBody = response.body().getQuestion().getBody();
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        txtQuestionBody.setText(Html.fromHtml(questionBody, Html.FROM_HTML_MODE_LEGACY));
+                        viewMvc.setQuestionBody(Html.fromHtml(questionBody, Html.FROM_HTML_MODE_LEGACY));
                     } else {
                         //noinspection deprecation
-                        txtQuestionBody.setText(Html.fromHtml(questionBody));
+                        viewMvc.setQuestionBody(Html.fromHtml(questionBody));
                     }
                 } else {
                     onFetchFailed();
@@ -108,7 +90,7 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
 
             @Override
             public void onFailure(Call<SingleQuestionResponseSchema> call, Throwable t) {
-                hideProgressIndication();
+                viewMvc.hideProgressIndication();
                 onFetchFailed();
             }
         });
@@ -128,4 +110,8 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
         context.startActivity(intent);
     }
 
+    @Override
+    public void onBack() {
+        onBackPressed();
+    }
 }

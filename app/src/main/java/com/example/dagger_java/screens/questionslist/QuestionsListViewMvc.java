@@ -1,12 +1,10 @@
 package com.example.dagger_java.screens.questionslist;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,35 +12,24 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.dagger_java.R;
 import com.example.dagger_java.questions.Question;
+import com.example.dagger_java.screens.common.viewsmvc.BaseViewMvc;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
-public class QuestionsListViewMvc {
+public class QuestionsListViewMvc extends BaseViewMvc<QuestionsListViewMvc.Listener> {
 
     interface Listener{
         void onRefreshClicked();
         void onQuestionClicked(Question clickedQuestion);
     }
-    private LayoutInflater layoutInflater;
-    private ViewGroup viewGroup;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private QuestionsAdapter questionsAdapter;
 
-    public View rootView;
-
-    private Context getContext() {
-        return rootView.getContext();
-    }
-
-    private HashSet<Listener> listeners = new HashSet<>();
-
     public QuestionsListViewMvc(LayoutInflater layoutInflater, ViewGroup viewGroup) {
-        this.layoutInflater = layoutInflater;
-        this.viewGroup = viewGroup;
+        super(layoutInflater, viewGroup, R.layout.layout_questions_list);
 
         init();
     }
@@ -61,23 +48,7 @@ public class QuestionsListViewMvc {
         }
     }
 
-    public void registerListener(Listener listener){
-        listeners.add(listener);
-    }
-
-    public void unregisterListener(Listener listener){
-        listeners.remove(listener);
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T extends View> T findViewById(@IdRes int id) {
-        return (T) rootView.findViewById(id);
-    }
-
     private void init(){
-
-        rootView = layoutInflater.inflate(R.layout.layout_questions_list,viewGroup, false);
-
         // init pull-down-to-refresh
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -155,6 +126,4 @@ public class QuestionsListViewMvc {
             return questionsList.size();
         }
     }
-
-
 }

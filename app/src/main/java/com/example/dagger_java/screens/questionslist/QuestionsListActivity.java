@@ -54,8 +54,8 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         viewMvc.unregisterListener(this);
     }
 
