@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.dagger_java.Constants;
 import com.example.dagger_java.networking.SingleQuestionResponseSchema;
 import com.example.dagger_java.networking.StackoverflowApi;
+import com.example.dagger_java.questions.FetchQuestionDetailsUseCase;
+import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.screens.common.dialogs.ServerErrorDialogFragment;
 import com.example.dagger_java.screens.common.toolbar.MyToolbar;
 
@@ -22,12 +24,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class QuestionDetailsActivity extends AppCompatActivity implements MyToolbar.NavigateUpListener, QuestionDetailsMvc.Listener {
+public class QuestionDetailsActivity extends AppCompatActivity implements MyToolbar.NavigateUpListener, QuestionDetailsMvc.Listener, FetchQuestionDetailsUseCase.FetchCallback {
 
-    private StackoverflowApi stackoverflowApi;
+
     private String questionId;
 
     private QuestionDetailsMvc viewMvc;
+
+    private FetchQuestionDetailsUseCase fetchQuestionDetailsUseCase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,22 +40,11 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
         viewMvc = new QuestionDetailsMvc(LayoutInflater.from(this),null);
         setContentView(viewMvc.rootView);
 
-        // inti retrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        stackoverflowApi = retrofit.create(StackoverflowApi.class);
-
-        // retrieve question ID passed from outside
         questionId = getIntent().getStringExtra("EXTRA_QUESTION_ID");
 
-        if(questionId != null){
-            Log.v("questionId",questionId);
-        }else{
-            Log.v("questionId","null");
-        }
+        fetchQuestionDetailsUseCase = new FetchQuestionDetailsUseCase(questionId, this);
+
+        fetchQuestionDetailsUseCase.fetchQuestionDetails();
     }
 
     @Override
@@ -68,32 +61,6 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
 
     private void fetchQuestionDetails() {
         viewMvc.showProgressIndication();
-
-        stackoverflowApi.questionDetails(questionId).enqueue(new Callback<SingleQuestionResponseSchema>() {
-            @Override
-            public void onResponse(Call<SingleQuestionResponseSchema> call, Response<SingleQuestionResponseSchema> response) {
-                viewMvc.hideProgressIndication();
-
-                if (response.isSuccessful() && response.body() != null) {
-                    String questionBody = response.body().getQuestion().getBody();
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        viewMvc.setQuestionBody(Html.fromHtml(questionBody, Html.FROM_HTML_MODE_LEGACY));
-                    } else {
-                        //noinspection deprecation
-                        viewMvc.setQuestionBody(Html.fromHtml(questionBody));
-                    }
-                } else {
-                    onFetchFailed();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SingleQuestionResponseSchema> call, Throwable t) {
-                viewMvc.hideProgressIndication();
-                onFetchFailed();
-            }
-        });
     }
 
 
@@ -113,5 +80,18 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
     @Override
     public void onBack() {
         onBackPressed();
+    }
+
+    @Override
+    public void onResult(FetchQuestionDetailsUseCase.Result result) {
+        try {
+            if(result instanceof FetchQuestionDetailsUseCase.Result.Success){
+                viewMvc.setQuestionBody(((FetchQuestionDetailsUseCase.Result.Success) result).getBody());
+            }else if(result instanceof FetchQuestionDetailsUseCase.Result.Failure){
+                onFetchFailed();
+            }
+        }finally {
+            viewMvc.hideProgressIndication();
+        }
     }
 }

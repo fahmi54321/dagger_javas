@@ -9,6 +9,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.dagger_java.Constants;
 import com.example.dagger_java.networking.QuestionsListResponseSchema;
 import com.example.dagger_java.networking.StackoverflowApi;
+import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.questions.Question;
 import com.example.dagger_java.screens.common.dialogs.ServerErrorDialogFragment;
 import com.example.dagger_java.screens.questiondetails.QuestionDetailsActivity;
@@ -19,13 +20,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class QuestionsListActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, QuestionsListViewMvc.Listener {
+public class QuestionsListActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, QuestionsListViewMvc.Listener, FetchQuestionUseCase.FetchCallback {
 
-    private StackoverflowApi stackoverflowApi;
 
     private QuestionsListViewMvc viewMvc;
 
     private boolean isDataLoaded = false;
+
+    private FetchQuestionUseCase fetchQuestionUseCase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +37,7 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
 
         setContentView(viewMvc.rootView);
 
-        // init retrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        stackoverflowApi = retrofit.create(StackoverflowApi.class);
+        fetchQuestionUseCase = new FetchQuestionUseCase(this);
     }
 
     @Override
@@ -67,25 +63,7 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
     private void fetchQuestions() {
         viewMvc.showProgressIndication();
 
-        // Retrofit call (asynchronous)
-        stackoverflowApi.lastActiveQuestions(20).enqueue(new Callback<QuestionsListResponseSchema>() {
-            @Override
-            public void onResponse(Call<QuestionsListResponseSchema> call, Response<QuestionsListResponseSchema> response) {
-                viewMvc.hideProgressIndication();
-                if (response.isSuccessful() && response.body() != null) {
-                    viewMvc.bindQuestions(response.body().getQuestions());
-                    isDataLoaded = true;
-                } else {
-                    onFetchFailed();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<QuestionsListResponseSchema> call, Throwable t) {
-                viewMvc.hideProgressIndication();
-                onFetchFailed();
-            }
-        });
+        fetchQuestionUseCase.fetchQuestions();
     }
 
     private void onFetchFailed(){
@@ -102,6 +80,21 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
     @Override
     public void onQuestionClicked(Question clickedQuestion) {
         QuestionDetailsActivity.start(this, clickedQuestion.getId());
+    }
+
+    @Override
+    public void onResult(FetchQuestionUseCase.Result result) {
+        try {
+            if(result instanceof FetchQuestionUseCase.Result.Success){
+                viewMvc.bindQuestions(((FetchQuestionUseCase.Result.Success) result).getQuestions());
+                isDataLoaded = true;
+
+            }else if(result instanceof FetchQuestionUseCase.Result.Failure){
+                onFetchFailed();
+            }
+        }finally {
+            viewMvc.hideProgressIndication();
+        }
     }
 }
 
