@@ -11,6 +11,7 @@ import com.example.dagger_java.networking.QuestionsListResponseSchema;
 import com.example.dagger_java.networking.StackoverflowApi;
 import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.questions.Question;
+import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 import com.example.dagger_java.screens.common.dialogs.ServerErrorDialogFragment;
 import com.example.dagger_java.screens.questiondetails.QuestionDetailsActivity;
 
@@ -29,6 +30,8 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
 
     private FetchQuestionUseCase fetchQuestionUseCase;
 
+    private DialogsNavigator dialogsNavigator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +40,10 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
 
         setContentView(viewMvc.rootView);
 
+        dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
+
         fetchQuestionUseCase = new FetchQuestionUseCase(this);
+
     }
 
     @Override
@@ -67,9 +73,7 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
     }
 
     private void onFetchFailed(){
-        getSupportFragmentManager().beginTransaction()
-                .add(ServerErrorDialogFragment.newInstance(),null)
-                .commitAllowingStateLoss();
+        dialogsNavigator.showServerErrorDialog();
     }
 
     @Override

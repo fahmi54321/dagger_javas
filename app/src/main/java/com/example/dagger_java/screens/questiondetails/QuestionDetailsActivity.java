@@ -15,6 +15,7 @@ import com.example.dagger_java.networking.SingleQuestionResponseSchema;
 import com.example.dagger_java.networking.StackoverflowApi;
 import com.example.dagger_java.questions.FetchQuestionDetailsUseCase;
 import com.example.dagger_java.questions.FetchQuestionUseCase;
+import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 import com.example.dagger_java.screens.common.dialogs.ServerErrorDialogFragment;
 import com.example.dagger_java.screens.common.toolbar.MyToolbar;
 
@@ -33,6 +34,8 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
 
     private FetchQuestionDetailsUseCase fetchQuestionDetailsUseCase;
 
+    private DialogsNavigator dialogsNavigator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,8 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
 
         fetchQuestionDetailsUseCase = new FetchQuestionDetailsUseCase(questionId, this);
 
+        dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
+
         fetchQuestionDetailsUseCase.fetchQuestionDetails();
     }
 
@@ -54,9 +59,7 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
     }
 
     private void onFetchFailed(){
-        getSupportFragmentManager().beginTransaction()
-                .add(ServerErrorDialogFragment.newInstance(),null)
-                .commitAllowingStateLoss();
+        dialogsNavigator.showServerErrorDialog();
     }
 
     private void fetchQuestionDetails() {
