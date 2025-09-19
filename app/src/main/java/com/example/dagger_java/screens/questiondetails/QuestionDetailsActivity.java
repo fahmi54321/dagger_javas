@@ -15,6 +15,7 @@ import com.example.dagger_java.networking.SingleQuestionResponseSchema;
 import com.example.dagger_java.networking.StackoverflowApi;
 import com.example.dagger_java.questions.FetchQuestionDetailsUseCase;
 import com.example.dagger_java.questions.FetchQuestionUseCase;
+import com.example.dagger_java.screens.common.ScreensNavigator;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 import com.example.dagger_java.screens.common.dialogs.ServerErrorDialogFragment;
 import com.example.dagger_java.screens.common.toolbar.MyToolbar;
@@ -36,6 +37,8 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
 
     private DialogsNavigator dialogsNavigator;
 
+    private ScreensNavigator screensNavigator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +52,11 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
 
         dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
 
+        screensNavigator = new ScreensNavigator(this);
+
         fetchQuestionDetailsUseCase.fetchQuestionDetails();
+
+
     }
 
     @Override
@@ -82,7 +89,7 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
 
     @Override
     public void onBack() {
-        onBackPressed();
+        screensNavigator.navigateBack();
     }
 
     @Override

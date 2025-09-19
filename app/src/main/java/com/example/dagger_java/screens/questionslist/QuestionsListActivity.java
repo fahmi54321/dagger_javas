@@ -11,6 +11,7 @@ import com.example.dagger_java.networking.QuestionsListResponseSchema;
 import com.example.dagger_java.networking.StackoverflowApi;
 import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.questions.Question;
+import com.example.dagger_java.screens.common.ScreensNavigator;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 import com.example.dagger_java.screens.common.dialogs.ServerErrorDialogFragment;
 import com.example.dagger_java.screens.questiondetails.QuestionDetailsActivity;
@@ -32,6 +33,8 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
 
     private DialogsNavigator dialogsNavigator;
 
+    private ScreensNavigator screensNavigator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,8 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
         dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
 
         fetchQuestionUseCase = new FetchQuestionUseCase(this);
+
+        screensNavigator = new ScreensNavigator(this);
 
     }
 
@@ -83,7 +88,7 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
 
     @Override
     public void onQuestionClicked(Question clickedQuestion) {
-        QuestionDetailsActivity.start(this, clickedQuestion.getId());
+        screensNavigator.toQuestionDetails(clickedQuestion.getId());
     }
 
     @Override
