@@ -18,22 +18,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FetchQuestionDetailsUseCase {
 
-    private Retrofit retrofit;
     private StackoverflowApi stackoverflowApi;
 
     private String questionId;
     private FetchCallback callback;
 
-    public FetchQuestionDetailsUseCase(String questionId, FetchCallback callback, Retrofit retrofit) {
+    public FetchQuestionDetailsUseCase(String questionId, FetchCallback callback, StackoverflowApi stackoverflowApi) {
         this.questionId = questionId;
         this.callback = callback;
-        this.retrofit = retrofit;
-
-        init();
-    }
-
-    private void init(){
-        stackoverflowApi = retrofit.create(StackoverflowApi.class);
+        this.stackoverflowApi = stackoverflowApi;
     }
 
     public void fetchQuestionDetails(){

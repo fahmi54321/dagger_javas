@@ -50,7 +50,7 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
 
         dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
 
-        fetchQuestionUseCase = new FetchQuestionUseCase(this,myApplication.retrofit);
+        fetchQuestionUseCase = new FetchQuestionUseCase(this,myApplication.stackoverflowApi);
 
         screensNavigator = new ScreensNavigator(this);
 

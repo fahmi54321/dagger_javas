@@ -14,20 +14,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FetchQuestionUseCase {
-
-    private Retrofit retrofit;
     private StackoverflowApi stackoverflowApi;
     private FetchCallback callback;
 
-    public FetchQuestionUseCase(FetchCallback callback, Retrofit retrofit) {
+    public FetchQuestionUseCase(FetchCallback callback, StackoverflowApi stackoverflowApi) {
         this.callback = callback;
-        this.retrofit = retrofit;
-
-        init();
-    }
-
-    private void init(){
-        stackoverflowApi = retrofit.create(StackoverflowApi.class);
+        this.stackoverflowApi = stackoverflowApi;
     }
 
     public void fetchQuestions(){
