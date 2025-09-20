@@ -40,13 +40,16 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
 
     private ScreensNavigator screensNavigator;
 
-    private final MyApplication myApplication = (MyApplication) getApplication();
+    private MyApplication myApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        myApplication = (MyApplication) getApplication();
+
         viewMvc = new QuestionDetailsMvc(LayoutInflater.from(this),null);
+
         setContentView(viewMvc.rootView);
 
         questionId = getIntent().getStringExtra("EXTRA_QUESTION_ID");

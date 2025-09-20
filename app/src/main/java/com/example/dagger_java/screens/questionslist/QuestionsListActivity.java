@@ -36,11 +36,13 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
 
     private ScreensNavigator screensNavigator;
 
-    private final MyApplication myApplication = (MyApplication) getApplication();
+    private MyApplication myApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        myApplication = (MyApplication) getApplication();
 
         viewMvc = new QuestionsListViewMvc(LayoutInflater.from(this), null);
 
