@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.dagger_java.Constants;
+import com.example.dagger_java.MyApplication;
 import com.example.dagger_java.networking.QuestionsListResponseSchema;
 import com.example.dagger_java.networking.StackoverflowApi;
 import com.example.dagger_java.questions.FetchQuestionUseCase;
@@ -35,6 +36,8 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
 
     private ScreensNavigator screensNavigator;
 
+    private final MyApplication myApplication = (MyApplication) getApplication();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +48,7 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
 
         dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
 
-        fetchQuestionUseCase = new FetchQuestionUseCase(this);
+        fetchQuestionUseCase = new FetchQuestionUseCase(this,myApplication.retrofit);
 
         screensNavigator = new ScreensNavigator(this);
 

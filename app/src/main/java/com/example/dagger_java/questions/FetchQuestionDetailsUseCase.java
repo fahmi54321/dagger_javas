@@ -18,18 +18,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FetchQuestionDetailsUseCase {
 
-    private final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
+    private Retrofit retrofit;
     private StackoverflowApi stackoverflowApi;
 
     private String questionId;
     private FetchCallback callback;
 
-    public FetchQuestionDetailsUseCase(String questionId, FetchCallback callback) {
+    public FetchQuestionDetailsUseCase(String questionId, FetchCallback callback, Retrofit retrofit) {
         this.questionId = questionId;
         this.callback = callback;
+        this.retrofit = retrofit;
 
         init();
     }

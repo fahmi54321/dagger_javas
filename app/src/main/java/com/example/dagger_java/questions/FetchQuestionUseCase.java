@@ -15,15 +15,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FetchQuestionUseCase {
 
-    private final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
+    private Retrofit retrofit;
     private StackoverflowApi stackoverflowApi;
     private FetchCallback callback;
 
-    public FetchQuestionUseCase(FetchCallback callback) {
+    public FetchQuestionUseCase(FetchCallback callback, Retrofit retrofit) {
         this.callback = callback;
+        this.retrofit = retrofit;
 
         init();
     }

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dagger_java.Constants;
+import com.example.dagger_java.MyApplication;
 import com.example.dagger_java.networking.SingleQuestionResponseSchema;
 import com.example.dagger_java.networking.StackoverflowApi;
 import com.example.dagger_java.questions.FetchQuestionDetailsUseCase;
@@ -39,6 +40,8 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
 
     private ScreensNavigator screensNavigator;
 
+    private final MyApplication myApplication = (MyApplication) getApplication();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +51,7 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
 
         questionId = getIntent().getStringExtra("EXTRA_QUESTION_ID");
 
-        fetchQuestionDetailsUseCase = new FetchQuestionDetailsUseCase(questionId, this);
+        fetchQuestionDetailsUseCase = new FetchQuestionDetailsUseCase(questionId, this, myApplication.retrofit);
 
         dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
 
