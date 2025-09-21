@@ -51,9 +51,9 @@ public class QuestionsListActivity extends BaseActivity implements SwipeRefreshL
 
         dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
 
-        fetchQuestionUseCase = getAppCompisitionRoot().getFetchQuestionUseCase();
+        fetchQuestionUseCase = getActivityCompositionRoot().getFetchQuestionUseCase();
 
-        screensNavigator = new ScreensNavigator(this);
+        screensNavigator = getActivityCompositionRoot().getScreensNavigator();
 
     }
 

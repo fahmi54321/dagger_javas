@@ -55,11 +55,11 @@ public class QuestionDetailsActivity extends BaseActivity implements MyToolbar.N
 
         questionId = getIntent().getStringExtra("EXTRA_QUESTION_ID");
 
-        fetchQuestionDetailsUseCase = getAppCompisitionRoot().getFetchQuestionDetailsUseCase();
+        fetchQuestionDetailsUseCase = getActivityCompositionRoot().getFetchQuestionDetailsUseCase();
 
         dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
 
-        screensNavigator = new ScreensNavigator(this);
+        screensNavigator = getActivityCompositionRoot().getScreensNavigator();
 
         fetchQuestionDetailsUseCase.fetchQuestionDetails(questionId, this);
 
