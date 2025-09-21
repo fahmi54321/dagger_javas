@@ -16,6 +16,7 @@ import com.example.dagger_java.networking.SingleQuestionResponseSchema;
 import com.example.dagger_java.networking.StackoverflowApi;
 import com.example.dagger_java.questions.FetchQuestionDetailsUseCase;
 import com.example.dagger_java.questions.FetchQuestionUseCase;
+import com.example.dagger_java.screens.activities.BaseActivity;
 import com.example.dagger_java.screens.common.ScreensNavigator;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 import com.example.dagger_java.screens.common.dialogs.ServerErrorDialogFragment;
@@ -27,7 +28,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class QuestionDetailsActivity extends AppCompatActivity implements MyToolbar.NavigateUpListener, QuestionDetailsMvc.Listener, FetchQuestionDetailsUseCase.FetchCallback {
+public class QuestionDetailsActivity extends BaseActivity implements MyToolbar.NavigateUpListener, QuestionDetailsMvc.Listener, FetchQuestionDetailsUseCase.FetchCallback {
 
 
     private String questionId;
@@ -54,7 +55,7 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
 
         questionId = getIntent().getStringExtra("EXTRA_QUESTION_ID");
 
-        fetchQuestionDetailsUseCase = myApplication.getFetchQuestionDetailsUseCase();
+        fetchQuestionDetailsUseCase = getAppCompisitionRoot().getFetchQuestionDetailsUseCase();
 
         dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
 

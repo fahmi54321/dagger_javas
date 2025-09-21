@@ -12,6 +12,7 @@ import com.example.dagger_java.networking.QuestionsListResponseSchema;
 import com.example.dagger_java.networking.StackoverflowApi;
 import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.questions.Question;
+import com.example.dagger_java.screens.activities.BaseActivity;
 import com.example.dagger_java.screens.common.ScreensNavigator;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 import com.example.dagger_java.screens.common.dialogs.ServerErrorDialogFragment;
@@ -23,7 +24,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class QuestionsListActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, QuestionsListViewMvc.Listener, FetchQuestionUseCase.FetchCallback {
+public class QuestionsListActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, QuestionsListViewMvc.Listener, FetchQuestionUseCase.FetchCallback {
 
 
     private QuestionsListViewMvc viewMvc;
@@ -50,7 +51,7 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
 
         dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
 
-        fetchQuestionUseCase = myApplication.getFetchQuestionUseCase();
+        fetchQuestionUseCase = getAppCompisitionRoot().getFetchQuestionUseCase();
 
         screensNavigator = new ScreensNavigator(this);
 
