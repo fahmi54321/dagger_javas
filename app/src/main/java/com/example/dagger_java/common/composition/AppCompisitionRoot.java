@@ -9,19 +9,34 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AppCompisitionRoot {
-    private final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
 
-    private final StackoverflowApi stackoverflowApi = retrofit.create(StackoverflowApi.class);
+    private static Retrofit retrofit;
+
+    private static Retrofit getRetrofit() {
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(Constants.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofit;
+    }
+
+    private static StackoverflowApi stackoverflowApi;
+
+    public static StackoverflowApi getStackoverflowApi() {
+        if(AppCompisitionRoot.stackoverflowApi == null){
+            stackoverflowApi =  AppCompisitionRoot.getRetrofit().create(StackoverflowApi.class);
+        }
+        return stackoverflowApi;
+    }
 
     public FetchQuestionUseCase getFetchQuestionUseCase() {
-        return new FetchQuestionUseCase(stackoverflowApi);
+        return new FetchQuestionUseCase(AppCompisitionRoot.getStackoverflowApi());
     }
 
     public FetchQuestionDetailsUseCase getFetchQuestionDetailsUseCase(){
-        return new FetchQuestionDetailsUseCase(stackoverflowApi);
+        return new FetchQuestionDetailsUseCase(AppCompisitionRoot.getStackoverflowApi());
     }
 
 }
