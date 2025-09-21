@@ -20,16 +20,12 @@ public class FetchQuestionDetailsUseCase {
 
     private StackoverflowApi stackoverflowApi;
 
-    private String questionId;
-    private FetchCallback callback;
 
-    public FetchQuestionDetailsUseCase(String questionId, FetchCallback callback, StackoverflowApi stackoverflowApi) {
-        this.questionId = questionId;
-        this.callback = callback;
+    public FetchQuestionDetailsUseCase(StackoverflowApi stackoverflowApi) {
         this.stackoverflowApi = stackoverflowApi;
     }
 
-    public void fetchQuestionDetails(){
+    public void fetchQuestionDetails(String questionId, FetchCallback callback){
         try {
             stackoverflowApi.questionDetails(questionId).enqueue(new Callback<SingleQuestionResponseSchema>() {
                 @Override

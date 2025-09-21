@@ -54,13 +54,13 @@ public class QuestionDetailsActivity extends AppCompatActivity implements MyTool
 
         questionId = getIntent().getStringExtra("EXTRA_QUESTION_ID");
 
-        fetchQuestionDetailsUseCase = new FetchQuestionDetailsUseCase(questionId, this, myApplication.stackoverflowApi);
+        fetchQuestionDetailsUseCase = myApplication.getFetchQuestionDetailsUseCase();
 
         dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
 
         screensNavigator = new ScreensNavigator(this);
 
-        fetchQuestionDetailsUseCase.fetchQuestionDetails();
+        fetchQuestionDetailsUseCase.fetchQuestionDetails(questionId, this);
 
 
     }

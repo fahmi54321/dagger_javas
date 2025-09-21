@@ -50,7 +50,7 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
 
         dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
 
-        fetchQuestionUseCase = new FetchQuestionUseCase(this,myApplication.stackoverflowApi);
+        fetchQuestionUseCase = myApplication.getFetchQuestionUseCase();
 
         screensNavigator = new ScreensNavigator(this);
 
@@ -79,7 +79,7 @@ public class QuestionsListActivity extends AppCompatActivity implements SwipeRef
     private void fetchQuestions() {
         viewMvc.showProgressIndication();
 
-        fetchQuestionUseCase.fetchQuestions();
+        fetchQuestionUseCase.fetchQuestions(this);
     }
 
     private void onFetchFailed(){

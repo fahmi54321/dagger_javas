@@ -15,14 +15,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FetchQuestionUseCase {
     private StackoverflowApi stackoverflowApi;
-    private FetchCallback callback;
 
-    public FetchQuestionUseCase(FetchCallback callback, StackoverflowApi stackoverflowApi) {
-        this.callback = callback;
+    public FetchQuestionUseCase(StackoverflowApi stackoverflowApi) {
         this.stackoverflowApi = stackoverflowApi;
     }
 
-    public void fetchQuestions(){
+    public void fetchQuestions(FetchCallback callback){
         try {
             stackoverflowApi.lastActiveQuestions(20).enqueue(new Callback<QuestionsListResponseSchema>() {
                 @Override
