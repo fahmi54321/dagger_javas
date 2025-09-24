@@ -57,7 +57,7 @@ public class QuestionDetailsActivity extends BaseActivity implements MyToolbar.N
 
         fetchQuestionDetailsUseCase = getActivityCompositionRoot().getFetchQuestionDetailsUseCase();
 
-        dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
+        dialogsNavigator = getActivityCompositionRoot().getDialogNavigator();
 
         screensNavigator = getActivityCompositionRoot().getScreensNavigator();
 

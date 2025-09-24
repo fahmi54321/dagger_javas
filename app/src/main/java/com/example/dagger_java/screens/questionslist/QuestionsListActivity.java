@@ -49,7 +49,7 @@ public class QuestionsListActivity extends BaseActivity implements SwipeRefreshL
 
         setContentView(viewMvc.rootView);
 
-        dialogsNavigator = new DialogsNavigator(getSupportFragmentManager());
+        dialogsNavigator = getActivityCompositionRoot().getDialogNavigator();
 
         fetchQuestionUseCase = getActivityCompositionRoot().getFetchQuestionUseCase();
 
