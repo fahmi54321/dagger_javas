@@ -41,13 +41,9 @@ public class QuestionDetailsActivity extends BaseActivity implements MyToolbar.N
 
     private ScreensNavigator screensNavigator;
 
-    private MyApplication myApplication;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        myApplication = (MyApplication) getApplication();
 
         viewMvc = new QuestionDetailsMvc(LayoutInflater.from(this),null);
 

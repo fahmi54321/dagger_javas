@@ -8,6 +8,10 @@ public class MyApplication extends Application {
 
     public AppCompisitionRoot appCompisitionRoot;
 
+    public AppCompisitionRoot getAppCompisitionRoot() {
+        return appCompisitionRoot;
+    }
+
     @Override
     public void onCreate() {
         appCompisitionRoot = new AppCompisitionRoot();
