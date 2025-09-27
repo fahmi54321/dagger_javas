@@ -43,7 +43,7 @@ public class QuestionsListFragment extends BaseFragment implements SwipeRefreshL
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewMvc = new QuestionsListViewMvc(LayoutInflater.from(requireContext()), container);
+        viewMvc = getCompositionRoot().getViewMvcFactory().newQuestionsListViewMvc(container);
 
         return viewMvc.rootView;
     }

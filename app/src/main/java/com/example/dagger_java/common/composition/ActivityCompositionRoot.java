@@ -1,6 +1,7 @@
 package com.example.dagger_java.common.composition;
 
 import android.app.Activity;
+import android.view.LayoutInflater;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -10,6 +11,7 @@ import com.example.dagger_java.questions.FetchQuestionDetailsUseCase;
 import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.screens.common.ScreensNavigator;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
+import com.example.dagger_java.screens.common.viewsmvc.ViewMvcFactory;
 
 public class ActivityCompositionRoot {
 
@@ -32,6 +34,14 @@ public class ActivityCompositionRoot {
 
     private FragmentManager getSupportFragmentManager(){
         return activity.getSupportFragmentManager();
+    }
+
+    private LayoutInflater getLayoutInflater(){
+        return LayoutInflater.from(activity);
+    }
+
+    public ViewMvcFactory getViewMvcFactory(){
+        return new ViewMvcFactory(getLayoutInflater());
     }
 
     public ScreensNavigator getScreensNavigator() {
