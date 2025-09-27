@@ -3,9 +3,15 @@ package com.example.dagger_java.screens.activities;
 import androidx.fragment.app.Fragment;
 
 import com.example.dagger_java.common.composition.ActivityCompositionRoot;
+import com.example.dagger_java.common.composition.PresentationCompositionRoot;
 
 public class BaseFragment extends Fragment {
-    protected ActivityCompositionRoot getCompositionRoot() {
-        return ((BaseActivity) requireActivity()).getActivityCompositionRoot();
+
+    private PresentationCompositionRoot presentationCompositionRoot;
+    protected PresentationCompositionRoot getCompositionRoot() {
+        if(presentationCompositionRoot == null){
+            presentationCompositionRoot = new PresentationCompositionRoot(((BaseActivity) requireActivity()).getActivityCompositionRoot());
+        }
+        return presentationCompositionRoot;
     }
 }

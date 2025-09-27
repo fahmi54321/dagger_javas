@@ -1,17 +1,12 @@
 package com.example.dagger_java.common.composition;
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.dagger_java.networking.StackoverflowApi;
-import com.example.dagger_java.questions.FetchQuestionDetailsUseCase;
-import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.screens.common.ScreensNavigator;
-import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
-import com.example.dagger_java.screens.common.viewsmvc.ViewMvcFactory;
 
 public class ActivityCompositionRoot {
 
@@ -25,25 +20,6 @@ public class ActivityCompositionRoot {
         this.appCompisitionRoot = appCompisitionRoot;
     }
 
-    private StackoverflowApi getStackoverflowApi() {
-        if(stackoverflowApi == null){
-            stackoverflowApi = appCompisitionRoot.getStackoverflowApi();
-        }
-        return stackoverflowApi;
-    }
-
-    private FragmentManager getSupportFragmentManager(){
-        return activity.getSupportFragmentManager();
-    }
-
-    private LayoutInflater getLayoutInflater(){
-        return LayoutInflater.from(activity);
-    }
-
-    public ViewMvcFactory getViewMvcFactory(){
-        return new ViewMvcFactory(getLayoutInflater());
-    }
-
     public ScreensNavigator getScreensNavigator() {
         if(screensNavigator == null){
             screensNavigator = new ScreensNavigator(activity);
@@ -51,15 +27,18 @@ public class ActivityCompositionRoot {
         return screensNavigator;
     }
 
-    public DialogsNavigator getDialogNavigator(){
-        return new DialogsNavigator(getSupportFragmentManager());
+    public StackoverflowApi getStackoverflowApi() {
+        if(stackoverflowApi == null){
+            stackoverflowApi = appCompisitionRoot.getStackoverflowApi();
+        }
+        return stackoverflowApi;
     }
 
-    public FetchQuestionUseCase getFetchQuestionUseCase() {
-        return new FetchQuestionUseCase(getStackoverflowApi());
+    public FragmentManager getSupportFragmentManager(){
+        return activity.getSupportFragmentManager();
     }
 
-    public FetchQuestionDetailsUseCase getFetchQuestionDetailsUseCase(){
-        return new FetchQuestionDetailsUseCase(getStackoverflowApi());
+    public LayoutInflater getLayoutInflater(){
+        return LayoutInflater.from(activity);
     }
 }

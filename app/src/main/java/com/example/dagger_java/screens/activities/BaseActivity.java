@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.dagger_java.MyApplication;
 import com.example.dagger_java.common.composition.ActivityCompositionRoot;
 import com.example.dagger_java.common.composition.AppCompisitionRoot;
+import com.example.dagger_java.common.composition.PresentationCompositionRoot;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 
 public class BaseActivity extends AppCompatActivity {
@@ -12,8 +13,17 @@ public class BaseActivity extends AppCompatActivity {
         return ((MyApplication) getApplication()).getAppCompisitionRoot();
     }
 
+    private ActivityCompositionRoot activityCompositionRoot;
+
     public ActivityCompositionRoot getActivityCompositionRoot(){
-        return new ActivityCompositionRoot(this, getAppCompositionRoot());
+        if(activityCompositionRoot == null){
+            activityCompositionRoot = new ActivityCompositionRoot(this, getAppCompositionRoot());
+        }
+        return activityCompositionRoot;
+    }
+
+    protected PresentationCompositionRoot compositionRoot(){
+        return new PresentationCompositionRoot(getActivityCompositionRoot());
     }
 
 }
