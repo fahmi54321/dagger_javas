@@ -14,7 +14,7 @@ public class MyApplication extends Application {
 
     @Override
     public void onCreate() {
-        appCompisitionRoot = new AppCompisitionRoot();
+        appCompisitionRoot = new AppCompisitionRoot(this);
         super.onCreate();
     }
 }

@@ -1,8 +1,11 @@
 package com.example.dagger_java.common.composition;
 
+import android.app.Application;
+
 import androidx.annotation.UiThread;
 
 import com.example.dagger_java.Constants;
+import com.example.dagger_java.MyApplication;
 import com.example.dagger_java.networking.StackoverflowApi;
 
 import retrofit2.Retrofit;
@@ -12,6 +15,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AppCompisitionRoot {
 
     private static Retrofit retrofit;
+
+    private final Application application;
+
+    public AppCompisitionRoot(Application application) {
+        this.application = application;
+    }
 
     private static Retrofit getRetrofit() {
         if (retrofit == null) {
@@ -32,4 +41,7 @@ public class AppCompisitionRoot {
         return stackoverflowApi;
     }
 
+    public Application getApplication() {
+        return application;
+    }
 }

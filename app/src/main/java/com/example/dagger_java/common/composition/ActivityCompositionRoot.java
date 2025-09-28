@@ -1,5 +1,6 @@
 package com.example.dagger_java.common.composition;
 
+import android.app.Application;
 import android.view.LayoutInflater;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,5 +41,9 @@ public class ActivityCompositionRoot {
 
     public LayoutInflater getLayoutInflater(){
         return LayoutInflater.from(activity);
+    }
+
+    public Application getApplication(){
+        return appCompisitionRoot.getApplication();
     }
 }
