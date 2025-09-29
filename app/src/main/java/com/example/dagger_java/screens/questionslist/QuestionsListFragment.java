@@ -14,6 +14,7 @@ import com.example.dagger_java.questions.Question;
 import com.example.dagger_java.screens.activities.BaseFragment;
 import com.example.dagger_java.screens.common.ScreensNavigator;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
+import com.example.dagger_java.screens.common.viewsmvc.ViewMvcFactory;
 
 public class QuestionsListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, QuestionsListViewMvc.Listener, FetchQuestionUseCase.FetchCallback {
 
@@ -22,28 +23,26 @@ public class QuestionsListFragment extends BaseFragment implements SwipeRefreshL
 
     private boolean isDataLoaded = false;
 
-    private FetchQuestionUseCase fetchQuestionUseCase;
+    public FetchQuestionUseCase fetchQuestionUseCase;
 
-    private DialogsNavigator dialogsNavigator;
+    public DialogsNavigator dialogsNavigator;
 
-    private ScreensNavigator screensNavigator;
+    public ScreensNavigator screensNavigator;
+
+    public ViewMvcFactory viewMvcFactory;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        dialogsNavigator = getCompositionRoot().getDialogNavigator();
-
-        fetchQuestionUseCase = getCompositionRoot().getFetchQuestionUseCase();
-
-        screensNavigator = getCompositionRoot().getScreensNavigator();
+        injector().inject(this);
 
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewMvc = getCompositionRoot().getViewMvcFactory().newQuestionsListViewMvc(container);
+        viewMvc = viewMvcFactory.newQuestionsListViewMvc(container);
 
         return viewMvc.rootView;
     }

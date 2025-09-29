@@ -2,7 +2,7 @@ package com.example.dagger_java;
 
 import android.app.Application;
 
-import com.example.dagger_java.common.composition.AppCompisitionRoot;
+import com.example.dagger_java.common.dependencyinjection.AppCompisitionRoot;
 
 public class MyApplication extends Application {
 

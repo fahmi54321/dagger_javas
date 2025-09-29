@@ -13,6 +13,7 @@ import com.example.dagger_java.screens.activities.BaseFragment;
 import com.example.dagger_java.screens.common.ScreensNavigator;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 import com.example.dagger_java.screens.common.toolbar.MyToolbar;
+import com.example.dagger_java.screens.common.viewsmvc.ViewMvcFactory;
 
 public class QuestionDetailsFragment extends BaseFragment implements MyToolbar.NavigateUpListener, QuestionDetailsMvc.Listener, FetchQuestionDetailsUseCase.FetchCallback {
 
@@ -21,11 +22,13 @@ public class QuestionDetailsFragment extends BaseFragment implements MyToolbar.N
 
     private QuestionDetailsMvc viewMvc;
 
-    private FetchQuestionDetailsUseCase fetchQuestionDetailsUseCase;
+    public FetchQuestionDetailsUseCase fetchQuestionDetailsUseCase;
 
-    private DialogsNavigator dialogsNavigator;
+    public DialogsNavigator dialogsNavigator;
 
-    private ScreensNavigator screensNavigator;
+    public ScreensNavigator screensNavigator;
+
+    public ViewMvcFactory viewMvcFactory;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,11 +36,7 @@ public class QuestionDetailsFragment extends BaseFragment implements MyToolbar.N
 
         questionId = requireActivity().getIntent().getStringExtra("EXTRA_QUESTION_ID");
 
-        fetchQuestionDetailsUseCase = getCompositionRoot().getFetchQuestionDetailsUseCase();
-
-        dialogsNavigator = getCompositionRoot().getDialogNavigator();
-
-        screensNavigator = getCompositionRoot().getScreensNavigator();
+        injector().inject(this);
 
         fetchQuestionDetailsUseCase.fetchQuestionDetails(questionId, this);
 
@@ -47,7 +46,7 @@ public class QuestionDetailsFragment extends BaseFragment implements MyToolbar.N
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewMvc = getCompositionRoot().getViewMvcFactory().newQuestionDetailsMvc(container);
+        viewMvc = viewMvcFactory.newQuestionDetailsMvc(container);
 
         return viewMvc.rootView;
     }

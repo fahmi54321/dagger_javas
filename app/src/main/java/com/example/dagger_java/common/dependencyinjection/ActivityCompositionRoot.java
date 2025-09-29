@@ -1,4 +1,4 @@
-package com.example.dagger_java.common.composition;
+package com.example.dagger_java.common.dependencyinjection;
 
 import android.app.Application;
 import android.view.LayoutInflater;
