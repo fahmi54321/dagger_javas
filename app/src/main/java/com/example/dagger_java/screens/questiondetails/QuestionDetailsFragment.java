@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.dagger_java.common.dependencyinjection.Service;
 import com.example.dagger_java.questions.FetchQuestionDetailsUseCase;
 import com.example.dagger_java.screens.activities.BaseFragment;
 import com.example.dagger_java.screens.common.ScreensNavigator;
@@ -22,13 +23,17 @@ public class QuestionDetailsFragment extends BaseFragment implements MyToolbar.N
 
     private QuestionDetailsMvc viewMvc;
 
-    public FetchQuestionDetailsUseCase fetchQuestionDetailsUseCase;
+    @Service
+    private FetchQuestionDetailsUseCase fetchQuestionDetailsUseCase;
 
-    public DialogsNavigator dialogsNavigator;
+    @Service
+    private DialogsNavigator dialogsNavigator;
 
-    public ScreensNavigator screensNavigator;
+    @Service
+    private ScreensNavigator screensNavigator;
 
-    public ViewMvcFactory viewMvcFactory;
+    @Service
+    private ViewMvcFactory viewMvcFactory;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

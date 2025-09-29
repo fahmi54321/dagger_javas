@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.dagger_java.common.dependencyinjection.Service;
 import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.questions.Question;
 import com.example.dagger_java.screens.activities.BaseFragment;
@@ -23,13 +24,17 @@ public class QuestionsListFragment extends BaseFragment implements SwipeRefreshL
 
     private boolean isDataLoaded = false;
 
-    public FetchQuestionUseCase fetchQuestionUseCase;
+    @Service
+    private FetchQuestionUseCase fetchQuestionUseCase;
 
-    public DialogsNavigator dialogsNavigator;
+    @Service
+    private DialogsNavigator dialogsNavigator;
 
-    public ScreensNavigator screensNavigator;
+    @Service
+    private ScreensNavigator screensNavigator;
 
-    public ViewMvcFactory viewMvcFactory;
+    @Service
+    private ViewMvcFactory viewMvcFactory;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
