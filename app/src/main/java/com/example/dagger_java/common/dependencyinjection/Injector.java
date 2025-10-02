@@ -5,18 +5,16 @@ import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.screens.common.ScreensNavigator;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 import com.example.dagger_java.screens.common.viewsmvc.ViewMvcFactory;
-import com.example.dagger_java.screens.questiondetails.QuestionDetailsFragment;
-import com.example.dagger_java.screens.questionslist.QuestionsListFragment;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 public class Injector {
 
-    private final PresentationCompositionRoot compositionRoot;
+    private final PresentationComponent component;
 
-    public Injector(PresentationCompositionRoot compositionRoot) {
-        this.compositionRoot = compositionRoot;
+    public Injector(PresentationComponent component) {
+        this.component = component;
     }
 
     public void inject(Object client) {
@@ -55,15 +53,15 @@ public class Injector {
 
     private Object getServiceForClass(Class<?> type) {
         if (type.equals(DialogsNavigator.class)) {
-            return compositionRoot.getDialogNavigator();
+            return component.dialogsNavigator();
         } else if (type.equals(ScreensNavigator.class)) {
-            return compositionRoot.getScreensNavigator();
+            return component.screensNavigator();
         } else if (type.equals(FetchQuestionUseCase.class)) {
-            return compositionRoot.getFetchQuestionUseCase();
+            return component.fetchQuestionUseCase();
         } else if (type.equals(FetchQuestionDetailsUseCase.class)) {
-            return compositionRoot.getFetchQuestionDetailsUseCase();
+            return component.fetchQuestionDetailsUseCase();
         } else if (type.equals(ViewMvcFactory.class)) {
-            return compositionRoot.getViewMvcFactory();
+            return component.viewMvcFactory();
         } else {
             throw new RuntimeException("Unsupported service type: " + type);
         }

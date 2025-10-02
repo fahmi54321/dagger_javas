@@ -47,4 +47,7 @@ dependencies {
 
     // swiperefreshlayout
     implementation(libs.swiperefreshlayout)
+
+    implementation (libs.dagger)
+    annotationProcessor(libs.dagger.compiler)
 }
