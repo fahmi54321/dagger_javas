@@ -2,12 +2,12 @@ package com.example.dagger_java.screens.activities;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.dagger_java.common.dependencyinjection.ActivityComponent;
-import com.example.dagger_java.common.dependencyinjection.DaggerActivityComponent;
-import com.example.dagger_java.common.dependencyinjection.DaggerPresentationComponent;
+import com.example.dagger_java.common.dependencyinjection.activity.ActivityComponent;
 import com.example.dagger_java.common.dependencyinjection.Injector;
-import com.example.dagger_java.common.dependencyinjection.PresentationComponent;
-import com.example.dagger_java.common.dependencyinjection.PresentationModule;
+import com.example.dagger_java.common.dependencyinjection.activity.DaggerActivityComponent;
+import com.example.dagger_java.common.dependencyinjection.presentation.DaggerPresentationComponent;
+import com.example.dagger_java.common.dependencyinjection.presentation.PresentationComponent;
+import com.example.dagger_java.common.dependencyinjection.presentation.PresentationModule;
 
 public class BaseFragment extends Fragment {
 

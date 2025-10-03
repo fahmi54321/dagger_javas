@@ -1,4 +1,4 @@
-package com.example.dagger_java.common.dependencyinjection;
+package com.example.dagger_java.common.dependencyinjection.activity;
 
 import android.app.Application;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import com.example.dagger_java.screens.common.ScreensNavigator;
 
 import dagger.Component;
 
+@ActivityScope
 @Component(modules = {ActivityModule.class})
 public interface ActivityComponent {
     AppCompatActivity getActivity();

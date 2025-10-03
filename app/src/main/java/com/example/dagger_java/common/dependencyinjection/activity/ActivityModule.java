@@ -1,12 +1,12 @@
-package com.example.dagger_java.common.dependencyinjection;
+package com.example.dagger_java.common.dependencyinjection.activity;
 
-import android.app.Activity;
 import android.app.Application;
 import android.view.LayoutInflater;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.dagger_java.common.dependencyinjection.app.AppComponent;
 import com.example.dagger_java.networking.StackoverflowApi;
 import com.example.dagger_java.screens.common.ScreensNavigator;
 
@@ -18,26 +18,9 @@ public class ActivityModule {
 
     private final AppCompatActivity activity;
     private final AppComponent appComponent;
-    private ScreensNavigator _screensNavigator;
-    private StackoverflowApi _stackoverflowApi;
-
     public ActivityModule(AppCompatActivity activity, AppComponent appComponent) {
         this.activity = activity;
         this.appComponent = appComponent;
-    }
-
-    private ScreensNavigator screensNavigator() {
-        if(_screensNavigator == null){
-            _screensNavigator = new ScreensNavigator(activity);
-        }
-        return _screensNavigator;
-    }
-
-    private StackoverflowApi stackoverflowApi() {
-        if(_stackoverflowApi == null){
-            _stackoverflowApi = appComponent.getStackoverflowApi();
-        }
-        return _stackoverflowApi;
     }
 
     @Provides
@@ -46,13 +29,14 @@ public class ActivityModule {
     }
 
     @Provides
+    @ActivityScope
     public ScreensNavigator getScreensNavigator(){
-        return screensNavigator();
+        return new ScreensNavigator(activity);
     }
 
     @Provides
     public StackoverflowApi getStackoverflowApi(){
-        return stackoverflowApi();
+        return appComponent.getStackoverflowApi();
     }
 
     @Provides

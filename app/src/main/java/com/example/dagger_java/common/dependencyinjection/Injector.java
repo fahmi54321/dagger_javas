@@ -1,5 +1,6 @@
 package com.example.dagger_java.common.dependencyinjection;
 
+import com.example.dagger_java.common.dependencyinjection.presentation.PresentationComponent;
 import com.example.dagger_java.questions.FetchQuestionDetailsUseCase;
 import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.screens.common.ScreensNavigator;

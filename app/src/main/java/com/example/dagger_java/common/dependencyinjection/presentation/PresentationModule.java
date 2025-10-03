@@ -1,9 +1,10 @@
-package com.example.dagger_java.common.dependencyinjection;
+package com.example.dagger_java.common.dependencyinjection.presentation;
 
 import android.view.LayoutInflater;
 
 import androidx.fragment.app.FragmentManager;
 
+import com.example.dagger_java.common.dependencyinjection.activity.ActivityComponent;
 import com.example.dagger_java.networking.StackoverflowApi;
 import com.example.dagger_java.questions.FetchQuestionDetailsUseCase;
 import com.example.dagger_java.questions.FetchQuestionUseCase;

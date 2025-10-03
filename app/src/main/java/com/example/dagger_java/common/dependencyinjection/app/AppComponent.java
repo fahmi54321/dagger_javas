@@ -1,12 +1,12 @@
-package com.example.dagger_java.common.dependencyinjection;
+package com.example.dagger_java.common.dependencyinjection.app;
 
 import android.app.Application;
 
 import com.example.dagger_java.networking.StackoverflowApi;
 
 import dagger.Component;
-import dagger.Provides;
 
+@AppScope
 @Component(modules = {AppModule.class})
 public interface AppComponent {
 

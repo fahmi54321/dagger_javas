@@ -1,6 +1,5 @@
-package com.example.dagger_java.common.dependencyinjection;
+package com.example.dagger_java.common.dependencyinjection.presentation;
 
-import com.example.dagger_java.networking.StackoverflowApi;
 import com.example.dagger_java.questions.FetchQuestionDetailsUseCase;
 import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.screens.common.ScreensNavigator;

@@ -2,7 +2,7 @@ package com.example.dagger_java;
 
 import android.app.Application;
 
-import com.example.dagger_java.common.dependencyinjection.AppModule;
+import com.example.dagger_java.common.dependencyinjection.app.AppModule;
 
 public class MyApplication extends Application {
 

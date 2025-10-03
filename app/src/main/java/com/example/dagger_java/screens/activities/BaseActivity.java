@@ -3,16 +3,16 @@ package com.example.dagger_java.screens.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dagger_java.MyApplication;
-import com.example.dagger_java.common.dependencyinjection.ActivityComponent;
-import com.example.dagger_java.common.dependencyinjection.ActivityModule;
-import com.example.dagger_java.common.dependencyinjection.AppComponent;
-import com.example.dagger_java.common.dependencyinjection.AppModule;
-import com.example.dagger_java.common.dependencyinjection.DaggerActivityComponent;
-import com.example.dagger_java.common.dependencyinjection.DaggerAppComponent;
-import com.example.dagger_java.common.dependencyinjection.DaggerPresentationComponent;
+import com.example.dagger_java.common.dependencyinjection.activity.ActivityComponent;
+import com.example.dagger_java.common.dependencyinjection.activity.ActivityModule;
+import com.example.dagger_java.common.dependencyinjection.activity.DaggerActivityComponent;
+import com.example.dagger_java.common.dependencyinjection.app.AppComponent;
+import com.example.dagger_java.common.dependencyinjection.app.AppModule;
 import com.example.dagger_java.common.dependencyinjection.Injector;
-import com.example.dagger_java.common.dependencyinjection.PresentationComponent;
-import com.example.dagger_java.common.dependencyinjection.PresentationModule;
+import com.example.dagger_java.common.dependencyinjection.app.DaggerAppComponent;
+import com.example.dagger_java.common.dependencyinjection.presentation.DaggerPresentationComponent;
+import com.example.dagger_java.common.dependencyinjection.presentation.PresentationComponent;
+import com.example.dagger_java.common.dependencyinjection.presentation.PresentationModule;
 
 public class BaseActivity extends AppCompatActivity {
     private AppModule getAppModule() {
