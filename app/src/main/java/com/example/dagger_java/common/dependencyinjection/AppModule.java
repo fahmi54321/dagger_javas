@@ -7,17 +7,19 @@ import androidx.annotation.UiThread;
 import com.example.dagger_java.Constants;
 import com.example.dagger_java.networking.StackoverflowApi;
 
+import dagger.Module;
+import dagger.Provides;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-@UiThread
-public class AppCompisitionRoot {
+@Module
+public class AppModule {
 
     private static Retrofit retrofit;
 
     private final Application application;
 
-    public AppCompisitionRoot(Application application) {
+    public AppModule(Application application) {
         this.application = application;
     }
 
@@ -31,15 +33,21 @@ public class AppCompisitionRoot {
         return retrofit;
     }
 
-    private static StackoverflowApi stackoverflowApi;
+    private static StackoverflowApi _stackoverflowApi;
 
-    public StackoverflowApi getStackoverflowApi() {
-        if(AppCompisitionRoot.stackoverflowApi == null){
-            stackoverflowApi =  AppCompisitionRoot.getRetrofit().create(StackoverflowApi.class);
+    public StackoverflowApi stackoverflowApi() {
+        if(AppModule._stackoverflowApi == null){
+            _stackoverflowApi =  AppModule.getRetrofit().create(StackoverflowApi.class);
         }
-        return stackoverflowApi;
+        return _stackoverflowApi;
     }
 
+    @Provides
+    public StackoverflowApi getStackoverflowApi(){
+        return stackoverflowApi();
+    }
+
+    @Provides
     public Application getApplication() {
         return application;
     }

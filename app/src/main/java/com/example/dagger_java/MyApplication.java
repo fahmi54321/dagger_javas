@@ -2,19 +2,19 @@ package com.example.dagger_java;
 
 import android.app.Application;
 
-import com.example.dagger_java.common.dependencyinjection.AppCompisitionRoot;
+import com.example.dagger_java.common.dependencyinjection.AppModule;
 
 public class MyApplication extends Application {
 
-    public AppCompisitionRoot appCompisitionRoot;
+    public AppModule appModule;
 
-    public AppCompisitionRoot getAppCompisitionRoot() {
-        return appCompisitionRoot;
+    public AppModule getAppCompisitionRoot() {
+        return appModule;
     }
 
     @Override
     public void onCreate() {
-        appCompisitionRoot = new AppCompisitionRoot(this);
+        appModule = new AppModule(this);
         super.onCreate();
     }
 }

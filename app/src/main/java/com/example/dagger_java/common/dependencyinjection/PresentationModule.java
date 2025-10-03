@@ -16,30 +16,30 @@ import dagger.Provides;
 
 @Module
 public class PresentationModule {
-    private final ActivityCompositionRoot activityCompositionRoot;
+    private final ActivityComponent activityComponent;
 
-    public PresentationModule(ActivityCompositionRoot activityCompositionRoot) {
-        this.activityCompositionRoot = activityCompositionRoot;
+    public PresentationModule(ActivityComponent activityComponent) {
+        this.activityComponent = activityComponent;
     }
 
     @Provides
     public LayoutInflater layoutInflater(){
-        return activityCompositionRoot.getLayoutInflater();
+        return activityComponent.getLayoutInflater();
     }
 
     @Provides
     public FragmentManager supportFragmentManager(){
-        return activityCompositionRoot.getSupportFragmentManager();
+        return activityComponent.getSupportFragmentManager();
     }
 
     @Provides
     public StackoverflowApi stackoverflowApi(){
-        return activityCompositionRoot.getStackoverflowApi();
+        return activityComponent.getStackoverflowApi();
     }
 
     @Provides
     public ScreensNavigator getScreensNavigator(){
-        return activityCompositionRoot.getScreensNavigator();
+        return activityComponent.getScreensNavigator();
     }
 
     @Provides
