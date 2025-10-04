@@ -3,7 +3,6 @@ package com.example.dagger_java.screens.activities;
 import androidx.fragment.app.Fragment;
 
 import com.example.dagger_java.common.dependencyinjection.activity.ActivityComponent;
-import com.example.dagger_java.common.dependencyinjection.Injector;
 import com.example.dagger_java.common.dependencyinjection.activity.DaggerActivityComponent;
 import com.example.dagger_java.common.dependencyinjection.presentation.DaggerPresentationComponent;
 import com.example.dagger_java.common.dependencyinjection.presentation.PresentationComponent;
@@ -35,7 +34,7 @@ public class BaseFragment extends Fragment {
         return presentationComponent;
     }
 
-    public Injector injector(){
-        return new Injector(getPresentationComponent());
+    public PresentationComponent injector(){
+        return getPresentationComponent();
     }
 }

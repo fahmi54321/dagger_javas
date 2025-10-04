@@ -5,18 +5,14 @@ import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.screens.common.ScreensNavigator;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 import com.example.dagger_java.screens.common.viewsmvc.ViewMvcFactory;
+import com.example.dagger_java.screens.questiondetails.QuestionDetailsFragment;
+import com.example.dagger_java.screens.questionslist.QuestionsListFragment;
 
 import dagger.Component;
 
 @Component(modules = {PresentationModule.class})
 public interface PresentationComponent {
-    ScreensNavigator screensNavigator();
+    void inject(QuestionsListFragment questionsListFragment);
 
-    ViewMvcFactory viewMvcFactory();
-
-    DialogsNavigator dialogsNavigator();
-
-    FetchQuestionUseCase fetchQuestionUseCase();
-
-    FetchQuestionDetailsUseCase fetchQuestionDetailsUseCase();
+    void inject(QuestionDetailsFragment questionDetailsFragment);
 }

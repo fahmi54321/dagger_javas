@@ -8,13 +8,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.dagger_java.common.dependencyinjection.Service;
 import com.example.dagger_java.questions.FetchQuestionDetailsUseCase;
 import com.example.dagger_java.screens.activities.BaseFragment;
 import com.example.dagger_java.screens.common.ScreensNavigator;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 import com.example.dagger_java.screens.common.toolbar.MyToolbar;
 import com.example.dagger_java.screens.common.viewsmvc.ViewMvcFactory;
+
+import javax.inject.Inject;
 
 public class QuestionDetailsFragment extends BaseFragment implements MyToolbar.NavigateUpListener, QuestionDetailsMvc.Listener, FetchQuestionDetailsUseCase.FetchCallback {
 
@@ -23,17 +24,17 @@ public class QuestionDetailsFragment extends BaseFragment implements MyToolbar.N
 
     private QuestionDetailsMvc viewMvc;
 
-    @Service
-    private FetchQuestionDetailsUseCase fetchQuestionDetailsUseCase;
+    @Inject
+    public FetchQuestionDetailsUseCase fetchQuestionDetailsUseCase;
 
-    @Service
-    private DialogsNavigator dialogsNavigator;
+    @Inject
+    public DialogsNavigator dialogsNavigator;
 
-    @Service
-    private ScreensNavigator screensNavigator;
+    @Inject
+    public ScreensNavigator screensNavigator;
 
-    @Service
-    private ViewMvcFactory viewMvcFactory;
+    @Inject
+    public ViewMvcFactory viewMvcFactory;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -8,7 +8,6 @@ import com.example.dagger_java.common.dependencyinjection.activity.ActivityModul
 import com.example.dagger_java.common.dependencyinjection.activity.DaggerActivityComponent;
 import com.example.dagger_java.common.dependencyinjection.app.AppComponent;
 import com.example.dagger_java.common.dependencyinjection.app.AppModule;
-import com.example.dagger_java.common.dependencyinjection.Injector;
 import com.example.dagger_java.common.dependencyinjection.app.DaggerAppComponent;
 import com.example.dagger_java.common.dependencyinjection.presentation.DaggerPresentationComponent;
 import com.example.dagger_java.common.dependencyinjection.presentation.PresentationComponent;
@@ -63,8 +62,8 @@ public class BaseActivity extends AppCompatActivity {
         return presentationComponent;
     }
 
-    public Injector injector(){
-        return new Injector(getPresentationComponent());
+    public PresentationComponent injector(){
+        return getPresentationComponent();
     }
 
 }
