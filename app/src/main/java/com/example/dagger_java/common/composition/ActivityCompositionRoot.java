@@ -16,7 +16,6 @@ public class ActivityCompositionRoot {
     private final AppCompatActivity activity;
     private final AppCompisitionRoot appCompisitionRoot;
     private ScreensNavigator screensNavigator;
-    private StackoverflowApi stackoverflowApi;
 
     public ActivityCompositionRoot(AppCompatActivity activity, AppCompisitionRoot appCompisitionRoot) {
         this.activity = activity;
@@ -24,10 +23,7 @@ public class ActivityCompositionRoot {
     }
 
     private StackoverflowApi getStackoverflowApi() {
-        if(stackoverflowApi == null){
-            stackoverflowApi = appCompisitionRoot.getStackoverflowApi();
-        }
-        return stackoverflowApi;
+        return appCompisitionRoot.getStackoverflowApi();
     }
 
     private FragmentManager getSupportFragmentManager(){
