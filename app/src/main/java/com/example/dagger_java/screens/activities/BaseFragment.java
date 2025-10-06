@@ -18,6 +18,7 @@ public class BaseFragment extends Fragment {
         if(activityComponent == null){
             activityComponent = DaggerActivityComponent
                     .builder()
+                    .appComponent(((BaseActivity) requireActivity()).getAppComponent())
                     .activityModule(((BaseActivity) requireActivity()).getActivityModule())
                     .build();
         }
@@ -28,7 +29,8 @@ public class BaseFragment extends Fragment {
         if(presentationComponent == null){
             presentationComponent = DaggerPresentationComponent
                     .builder()
-                    .presentationModule(new PresentationModule(getActivityComponent()))
+                    .activityComponent(getActivityComponent())
+                    .presentationModule(new PresentationModule())
                     .build();
         }
         return presentationComponent;

@@ -17,32 +17,6 @@ import dagger.Provides;
 
 @Module
 public class PresentationModule {
-    private final ActivityComponent activityComponent;
-
-    public PresentationModule(ActivityComponent activityComponent) {
-        this.activityComponent = activityComponent;
-    }
-
-    @Provides
-    public LayoutInflater layoutInflater(){
-        return activityComponent.getLayoutInflater();
-    }
-
-    @Provides
-    public FragmentManager supportFragmentManager(){
-        return activityComponent.getSupportFragmentManager();
-    }
-
-    @Provides
-    public StackoverflowApi stackoverflowApi(){
-        return activityComponent.getStackoverflowApi();
-    }
-
-    @Provides
-    public ScreensNavigator getScreensNavigator(){
-        return activityComponent.getScreensNavigator();
-    }
-
     @Provides
     public ViewMvcFactory getViewMvcFactory(LayoutInflater layoutInflater){
         return new ViewMvcFactory(layoutInflater);

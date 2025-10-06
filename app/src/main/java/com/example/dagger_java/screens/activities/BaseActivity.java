@@ -22,7 +22,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private AppComponent appComponent;
 
-    private AppComponent getAppComponent(){
+    public AppComponent getAppComponent(){
         if(appComponent == null){
             appComponent = DaggerAppComponent
                     .builder()
@@ -34,7 +34,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public ActivityModule getActivityModule(){
         if(activityModule == null){
-            activityModule = new ActivityModule(this, getAppComponent());
+            activityModule = new ActivityModule(this);
         }
         return activityModule;
     }
@@ -45,6 +45,7 @@ public class BaseActivity extends AppCompatActivity {
         if(activityComponent == null){
             activityComponent = DaggerActivityComponent
                     .builder()
+                    .appComponent(getAppComponent())
                     .activityModule(getActivityModule())
                     .build();
         }
@@ -56,7 +57,8 @@ public class BaseActivity extends AppCompatActivity {
     private PresentationComponent getPresentationComponent(){
         if(presentationComponent == null){
             presentationComponent = DaggerPresentationComponent.builder()
-                    .presentationModule(new PresentationModule(getActivityComponent()))
+                    .activityComponent(getActivityComponent())
+                    .presentationModule(new PresentationModule())
                     .build();
         }
         return presentationComponent;
