@@ -1,8 +1,7 @@
 package com.example.dagger_java.common.dependencyinjection.app;
 
-import android.app.Application;
-
-import com.example.dagger_java.networking.StackoverflowApi;
+import com.example.dagger_java.common.dependencyinjection.activity.ActivityComponent;
+import com.example.dagger_java.common.dependencyinjection.activity.ActivityModule;
 
 import dagger.Component;
 
@@ -10,8 +9,6 @@ import dagger.Component;
 @Component(modules = {AppModule.class})
 public interface AppComponent {
 
-    StackoverflowApi getStackoverflowApi();
-
-    Application getApplication();
+    ActivityComponent newActivityModule(ActivityModule activityModule);
 
 }

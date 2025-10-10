@@ -3,37 +3,17 @@ package com.example.dagger_java.screens.activities;
 import androidx.fragment.app.Fragment;
 
 import com.example.dagger_java.common.dependencyinjection.activity.ActivityComponent;
-import com.example.dagger_java.common.dependencyinjection.activity.DaggerActivityComponent;
-import com.example.dagger_java.common.dependencyinjection.presentation.DaggerPresentationComponent;
 import com.example.dagger_java.common.dependencyinjection.presentation.PresentationComponent;
 import com.example.dagger_java.common.dependencyinjection.presentation.PresentationModule;
 
 public class BaseFragment extends Fragment {
 
-    private PresentationComponent presentationComponent;
-
-    private ActivityComponent activityComponent;
-
     private ActivityComponent getActivityComponent(){
-        if(activityComponent == null){
-            activityComponent = DaggerActivityComponent
-                    .builder()
-                    .appComponent(((BaseActivity) requireActivity()).getAppComponent())
-                    .activityModule(((BaseActivity) requireActivity()).getActivityModule())
-                    .build();
-        }
-        return activityComponent;
+        return ((BaseActivity) requireActivity()).getAppComponent().newActivityModule(((BaseActivity) requireActivity()).getActivityModule());
     }
 
     private PresentationComponent getPresentationComponent(){
-        if(presentationComponent == null){
-            presentationComponent = DaggerPresentationComponent
-                    .builder()
-                    .activityComponent(getActivityComponent())
-                    .presentationModule(new PresentationModule())
-                    .build();
-        }
-        return presentationComponent;
+        return getActivityComponent().newPresentationComponent(new PresentationModule());
     }
 
     public PresentationComponent injector(){
