@@ -7,7 +7,7 @@ import dagger.Component;
 import dagger.Subcomponent;
 
 @PresentationScope
-@Subcomponent(modules = {PresentationModule.class})
+@Subcomponent(modules = {PresentationModule.class, UseCaseModule.class})
 public interface PresentationComponent {
     void inject(QuestionsListFragment questionsListFragment);
 

@@ -4,11 +4,9 @@ import android.view.LayoutInflater;
 
 import androidx.fragment.app.FragmentManager;
 
-import com.example.dagger_java.common.dependencyinjection.activity.ActivityComponent;
 import com.example.dagger_java.networking.StackoverflowApi;
 import com.example.dagger_java.questions.FetchQuestionDetailsUseCase;
 import com.example.dagger_java.questions.FetchQuestionUseCase;
-import com.example.dagger_java.screens.common.ScreensNavigator;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 import com.example.dagger_java.screens.common.viewsmvc.ViewMvcFactory;
 
@@ -16,15 +14,16 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class PresentationModule {
+public class UseCaseModule {
+
     @Provides
-    public ViewMvcFactory getViewMvcFactory(LayoutInflater layoutInflater){
-        return new ViewMvcFactory(layoutInflater);
+    public FetchQuestionUseCase getFetchQuestionUseCase(StackoverflowApi stackoverflowApi) {
+        return new FetchQuestionUseCase(stackoverflowApi);
     }
 
     @Provides
-    public DialogsNavigator getDialogNavigator(FragmentManager fragmentManager){
-        return new DialogsNavigator(fragmentManager);
+    public FetchQuestionDetailsUseCase getFetchQuestionDetailsUseCase(StackoverflowApi stackoverflowApi){
+        return new FetchQuestionDetailsUseCase(stackoverflowApi);
     }
 
 }

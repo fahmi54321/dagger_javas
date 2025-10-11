@@ -10,6 +10,7 @@ import com.example.dagger_java.common.dependencyinjection.app.AppModule;
 import com.example.dagger_java.common.dependencyinjection.app.DaggerAppComponent;
 import com.example.dagger_java.common.dependencyinjection.presentation.PresentationComponent;
 import com.example.dagger_java.common.dependencyinjection.presentation.PresentationModule;
+import com.example.dagger_java.common.dependencyinjection.presentation.UseCaseModule;
 
 public class BaseActivity extends AppCompatActivity {
     private AppModule getAppModule() {
@@ -17,6 +18,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private ActivityModule activityModule;
+    private PresentationModule presentationModule;
+    private UseCaseModule useCaseModule;
 
     private AppComponent appComponent;
 
@@ -37,12 +40,30 @@ public class BaseActivity extends AppCompatActivity {
         return activityModule;
     }
 
+    public PresentationModule getPresentationModule(){
+        if(presentationModule == null){
+            presentationModule = new PresentationModule();
+        }
+        return presentationModule;
+    }
+
+    public UseCaseModule getUseCaseModule(){
+        if(useCaseModule == null){
+            useCaseModule = new UseCaseModule();
+        }
+        return useCaseModule;
+    }
+
+
     private ActivityComponent getActivityComponent(){
         return getAppComponent().newActivityModule(getActivityModule());
     }
 
     private PresentationComponent getPresentationComponent(){
-        return getActivityComponent().newPresentationComponent(new PresentationModule());
+        return getActivityComponent().newPresentationComponent(
+                getPresentationModule(),
+                getUseCaseModule()
+        );
     }
 
     public PresentationComponent injector(){

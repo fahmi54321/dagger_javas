@@ -13,7 +13,10 @@ public class BaseFragment extends Fragment {
     }
 
     private PresentationComponent getPresentationComponent(){
-        return getActivityComponent().newPresentationComponent(new PresentationModule());
+        return getActivityComponent().newPresentationComponent(
+                ((BaseActivity) requireActivity()).getPresentationModule(),
+                ((BaseActivity) requireActivity()).getUseCaseModule()
+        );
     }
 
     public PresentationComponent injector(){
