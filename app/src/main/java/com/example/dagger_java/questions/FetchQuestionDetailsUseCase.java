@@ -10,6 +10,8 @@ import com.example.dagger_java.networking.StackoverflowApi;
 
 import java.util.concurrent.CancellationException;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,9 +20,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FetchQuestionDetailsUseCase {
 
-    private StackoverflowApi stackoverflowApi;
+    private final StackoverflowApi stackoverflowApi;
 
 
+    @Inject
     public FetchQuestionDetailsUseCase(StackoverflowApi stackoverflowApi) {
         this.stackoverflowApi = stackoverflowApi;
     }

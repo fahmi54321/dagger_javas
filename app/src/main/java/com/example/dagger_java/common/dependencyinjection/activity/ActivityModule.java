@@ -24,12 +24,6 @@ public class ActivityModule {
     }
 
     @Provides
-    @ActivityScope
-    public ScreensNavigator getScreensNavigator(){
-        return new ScreensNavigator(activity);
-    }
-
-    @Provides
     public FragmentManager getSupportFragmentManager(){
         return getActivity().getSupportFragmentManager();
     }

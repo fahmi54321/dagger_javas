@@ -7,9 +7,12 @@ import com.example.dagger_java.screens.questiondetails.QuestionDetailsMvc;
 import com.example.dagger_java.screens.questionslist.QuestionsListFragment;
 import com.example.dagger_java.screens.questionslist.QuestionsListViewMvc;
 
+import javax.inject.Inject;
+
 public class ViewMvcFactory {
     private LayoutInflater inflater;
 
+    @Inject
     public ViewMvcFactory(LayoutInflater inflater) {
         this.inflater = inflater;
     }

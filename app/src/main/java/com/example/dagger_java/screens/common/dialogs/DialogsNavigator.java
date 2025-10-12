@@ -3,9 +3,12 @@ package com.example.dagger_java.screens.common.dialogs;
 
 import androidx.fragment.app.FragmentManager;
 
+import javax.inject.Inject;
+
 public class DialogsNavigator {
     private FragmentManager fragmentManager;
 
+    @Inject
     public DialogsNavigator(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
     }
