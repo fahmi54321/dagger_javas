@@ -13,6 +13,7 @@ import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.questions.Question;
 import com.example.dagger_java.screens.activities.BaseFragment;
 import com.example.dagger_java.screens.common.ScreensNavigator;
+import com.example.dagger_java.screens.common.ScreensNavigatorImpl;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 import com.example.dagger_java.screens.common.viewsmvc.ViewMvcFactory;
 

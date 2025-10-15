@@ -6,17 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.dagger_java.screens.common.ScreensNavigator;
+import com.example.dagger_java.screens.common.ScreensNavigatorImpl;
 
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class ActivityModule {
-    @Provides
+abstract class ActivityModule {
+    @Binds
     @ActivityScope
-    public static ScreensNavigator getScreensNavigator(AppCompatActivity activity){
-        return new ScreensNavigator(activity);
-    }
+    abstract ScreensNavigator getScreensNavigator(ScreensNavigatorImpl screensNavigator);
 
     @Provides
     public static FragmentManager getSupportFragmentManager(AppCompatActivity activity){

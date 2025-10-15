@@ -16,7 +16,6 @@ public interface ActivityComponent {
     interface Builder{
         @BindsInstance
         Builder activity(AppCompatActivity activity);
-        Builder activityModule(ActivityModule activityModule);
         ActivityComponent build();
     }
 }

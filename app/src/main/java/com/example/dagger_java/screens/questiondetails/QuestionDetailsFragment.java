@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import com.example.dagger_java.questions.FetchQuestionDetailsUseCase;
 import com.example.dagger_java.screens.activities.BaseFragment;
 import com.example.dagger_java.screens.common.ScreensNavigator;
+import com.example.dagger_java.screens.common.ScreensNavigatorImpl;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 import com.example.dagger_java.screens.common.toolbar.MyToolbar;
 import com.example.dagger_java.screens.common.viewsmvc.ViewMvcFactory;
