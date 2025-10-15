@@ -12,25 +12,20 @@ import dagger.Provides;
 
 @Module
 public class ActivityModule {
-
-    private final AppCompatActivity activity;
-    public ActivityModule(AppCompatActivity activity) {
-        this.activity = activity;
+    @Provides
+    @ActivityScope
+    public static ScreensNavigator getScreensNavigator(AppCompatActivity activity){
+        return new ScreensNavigator(activity);
     }
 
     @Provides
-    public AppCompatActivity getActivity(){
-        return activity;
+    public static FragmentManager getSupportFragmentManager(AppCompatActivity activity){
+        return activity.getSupportFragmentManager();
     }
 
     @Provides
-    public FragmentManager getSupportFragmentManager(){
-        return getActivity().getSupportFragmentManager();
-    }
-
-    @Provides
-    public LayoutInflater getLayoutInflater(){
-        return LayoutInflater.from(getActivity());
+    public static LayoutInflater getLayoutInflater(AppCompatActivity activity){
+        return LayoutInflater.from(activity);
     }
 
 }

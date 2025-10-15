@@ -11,34 +11,25 @@ import com.example.dagger_java.common.dependencyinjection.app.DaggerAppComponent
 import com.example.dagger_java.common.dependencyinjection.presentation.PresentationComponent;
 
 public class BaseActivity extends AppCompatActivity {
-    private AppModule getAppModule() {
-        return ((MyApplication) getApplication()).getAppCompisitionRoot();
+    public AppComponent getAppComponent() {
+        return ((MyApplication) getApplication()).getAppComponent();
     }
 
     private ActivityModule activityModule;
 
-    private AppComponent appComponent;
-
-    public AppComponent getAppComponent(){
-        if(appComponent == null){
-            appComponent = DaggerAppComponent
-                    .builder()
-                    .appModule(getAppModule())
-                    .build();
-        }
-        return appComponent;
-    }
-
-    public ActivityModule getActivityModule(){
+    private ActivityModule activityModule(){
         if(activityModule == null){
-            activityModule = new ActivityModule(this);
+            activityModule = new ActivityModule();
         }
         return activityModule;
     }
 
 
-    private ActivityComponent getActivityComponent(){
-        return getAppComponent().newActivityModule(getActivityModule());
+    public ActivityComponent getActivityComponent(){
+        return getAppComponent().newActivityCompomentBuilder()
+                .activity(this)
+                .activityModule(activityModule())
+                .build();
     }
 
     private PresentationComponent getPresentationComponent(){

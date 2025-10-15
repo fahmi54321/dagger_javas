@@ -8,7 +8,7 @@ import com.example.dagger_java.common.dependencyinjection.presentation.Presentat
 public class BaseFragment extends Fragment {
 
     private ActivityComponent getActivityComponent(){
-        return ((BaseActivity) requireActivity()).getAppComponent().newActivityModule(((BaseActivity) requireActivity()).getActivityModule());
+        return ((BaseActivity) requireActivity()).getActivityComponent();
     }
 
     private PresentationComponent getPresentationComponent(){

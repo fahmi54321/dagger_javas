@@ -50,4 +50,6 @@ dependencies {
 
     implementation (libs.dagger)
     annotationProcessor(libs.dagger.compiler)
+
+//    debugImplementation(libs.leakcanary.android)
 }

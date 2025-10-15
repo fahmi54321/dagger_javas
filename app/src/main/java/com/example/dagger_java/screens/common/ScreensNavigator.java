@@ -9,10 +9,8 @@ import com.example.dagger_java.screens.questiondetails.QuestionDetailsActivity;
 
 import javax.inject.Inject;
 
-@ActivityScope
 public class ScreensNavigator {
 
-    @Inject
     public ScreensNavigator(AppCompatActivity activity) {
         this.activity = activity;
     }

@@ -9,6 +9,6 @@ import dagger.Component;
 @Component(modules = {AppModule.class})
 public interface AppComponent {
 
-    ActivityComponent newActivityModule(ActivityModule activityModule);
+    ActivityComponent.Builder newActivityCompomentBuilder();
 
 }
