@@ -10,6 +10,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.dagger_java.R;
 import com.example.dagger_java.screens.common.toolbar.MyToolbar;
 import com.example.dagger_java.screens.common.viewsmvc.BaseViewMvc;
+import com.example.dagger_java.screens.imageloader.ImageLoader;
+
 public class QuestionDetailsMvc extends BaseViewMvc<QuestionDetailsMvc.Listener> {
 
     interface Listener{
@@ -20,8 +22,11 @@ public class QuestionDetailsMvc extends BaseViewMvc<QuestionDetailsMvc.Listener>
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView txtQuestionBody;
 
-    public QuestionDetailsMvc(LayoutInflater layoutInflater, ViewGroup viewGroup) {
+    private ImageLoader imageLoader;
+
+    public QuestionDetailsMvc(LayoutInflater layoutInflater, ViewGroup viewGroup, ImageLoader imageLoader) {
         super(layoutInflater,viewGroup,R.layout.layout_question_details);
+        this.imageLoader = imageLoader;
 
         init();
     }

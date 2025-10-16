@@ -51,5 +51,7 @@ dependencies {
     implementation (libs.dagger)
     annotationProcessor(libs.dagger.compiler)
 
+    implementation (libs.glide)
+
 //    debugImplementation(libs.leakcanary.android)
 }
