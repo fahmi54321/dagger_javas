@@ -7,7 +7,7 @@ import com.example.dagger_java.screens.viewmodel.ViewModelActivity;
 import dagger.Subcomponent;
 
 @PresentationScope
-@Subcomponent
+@Subcomponent(modules = {ViewModelsModule.class})
 public interface PresentationComponent {
     void inject(QuestionsListFragment questionsListFragment);
 
