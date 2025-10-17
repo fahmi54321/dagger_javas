@@ -95,6 +95,11 @@ public class QuestionsListFragment extends BaseFragment implements SwipeRefreshL
     }
 
     @Override
+    public void toViewModel() {
+        screensNavigator.toViewModel();
+    }
+
+    @Override
     public void onResult(FetchQuestionUseCase.Result result) {
         try {
             if(result instanceof FetchQuestionUseCase.Result.Success){

@@ -3,6 +3,7 @@ package com.example.dagger_java.screens.questionslist;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,10 +23,14 @@ public class QuestionsListViewMvc extends BaseViewMvc<QuestionsListViewMvc.Liste
     interface Listener{
         void onRefreshClicked();
         void onQuestionClicked(Question clickedQuestion);
+
+        void toViewModel();
     }
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
+
+    private Button btnToViewModel;
     private QuestionsAdapter questionsAdapter;
 
     public QuestionsListViewMvc(LayoutInflater layoutInflater, ViewGroup viewGroup) {
@@ -63,6 +68,8 @@ public class QuestionsListViewMvc extends BaseViewMvc<QuestionsListViewMvc.Liste
         // init recycler view
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        btnToViewModel = findViewById(R.id.btn_to_view_model);
         questionsAdapter = new QuestionsAdapter(new QuestionsAdapter.OnQuestionClickListener() {
             @Override
             public void onQuestionClick(Question question) {
@@ -72,6 +79,12 @@ public class QuestionsListViewMvc extends BaseViewMvc<QuestionsListViewMvc.Liste
             }
         });
         recyclerView.setAdapter(questionsAdapter);
+
+        btnToViewModel.setOnClickListener(v -> {
+            for(Listener listener: listeners){
+                listener.toViewModel();
+            }
+        });
     }
 
     static class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.QuestionViewHolder> {

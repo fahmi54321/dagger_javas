@@ -54,4 +54,7 @@ dependencies {
     implementation (libs.glide)
 
 //    debugImplementation(libs.leakcanary.android)
+
+    // ViewModel
+    implementation (libs.lifecycle.viewmodel)
 }
