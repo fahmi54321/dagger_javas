@@ -6,26 +6,20 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.dagger_java.R;
-import com.example.dagger_java.questions.Question;
 import com.example.dagger_java.screens.activities.BaseActivity;
-import com.example.dagger_java.screens.questiondetails.QuestionDetailsActivity;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
 public class ViewModelActivity extends BaseActivity {
 
     @Inject
-    public MyViewModel.MyViewModelFactory myViewModelFactory;
+    public ViewModelFactory viewModelFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +33,8 @@ public class ViewModelActivity extends BaseActivity {
             return insets;
         });
 
-        MyViewModel myViewModel = new ViewModelProvider(this, myViewModelFactory).get(MyViewModel.class);
+        MyViewModel myViewModel = new ViewModelProvider(this, viewModelFactory).get(MyViewModel.class);
+        MyViewModel2 myViewModel2 = new ViewModelProvider(this, viewModelFactory).get(MyViewModel2.class);
         myViewModel.question.observe(this, questions -> Toast.makeText(ViewModelActivity.this, "fetched :"+questions.size(), Toast.LENGTH_SHORT).show());
     }
 
