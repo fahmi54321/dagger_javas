@@ -42,17 +42,17 @@ public class MyViewModel extends ViewModel {
     }
 
     static class MyViewModelFactory implements ViewModelProvider.Factory {
-        private final Provider<FetchQuestionUseCase> fetchQuestionUseCaseProvider;
+        private final Provider<MyViewModel> myViewModelProvider;
 
         @Inject
-        public MyViewModelFactory(Provider<FetchQuestionUseCase> fetchQuestionUseCaseProvider) {
-            this.fetchQuestionUseCaseProvider = fetchQuestionUseCaseProvider;
+        public MyViewModelFactory(Provider<MyViewModel> myViewModelProvider) {
+            this.myViewModelProvider = myViewModelProvider;
         }
 
         @NonNull
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            return ((T) new MyViewModel(fetchQuestionUseCaseProvider.get()));
+            return ((T) myViewModelProvider.get());
         }
     }
 }
