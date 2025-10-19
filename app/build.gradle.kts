@@ -57,4 +57,7 @@ dependencies {
 
     // ViewModel
     implementation (libs.lifecycle.viewmodel)
+
+    implementation (libs.lifecycle.viewmodel.savedstate)
+
 }
