@@ -35,7 +35,7 @@ public class ViewModelActivity extends BaseActivity {
 
         MyViewModel myViewModel = new ViewModelProvider(this, viewModelFactory).get(MyViewModel.class);
         MyViewModel2 myViewModel2 = new ViewModelProvider(this, viewModelFactory).get(MyViewModel2.class);
-        myViewModel.question.observe(this, questions -> Toast.makeText(ViewModelActivity.this, "fetched :"+questions.size(), Toast.LENGTH_SHORT).show());
+        myViewModel.question().observe(this, questions -> Toast.makeText(ViewModelActivity.this, "fetched :"+questions.size(), Toast.LENGTH_SHORT).show());
     }
 
     public static void start(Context context) {

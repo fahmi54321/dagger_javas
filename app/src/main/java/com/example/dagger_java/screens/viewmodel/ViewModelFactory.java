@@ -9,34 +9,36 @@ import androidx.lifecycle.viewmodel.CreationExtras;
 
 import com.example.dagger_java.questions.FetchQuestionUseCase;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
 
-    private final Provider<FetchQuestionUseCase> fetchQuestionUseCaseProvider;
+    private final Map<Class<? extends ViewModel>, Provider<ViewModel>> providers;
 
     @Inject
-    public ViewModelFactory(Provider<FetchQuestionUseCase> fetchQuestionUseCaseProvider) {
-        this.fetchQuestionUseCaseProvider = fetchQuestionUseCaseProvider;
+    public ViewModelFactory(Map<Class<? extends ViewModel>, Provider<ViewModel>> providers) {
+        this.providers = providers;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass, @NonNull CreationExtras extras) {
         SavedStateHandle savedStateHandle = SavedStateHandleSupport.createSavedStateHandle(extras);
-        if (modelClass.isAssignableFrom(MyViewModel.class)) {
-            return (T) new MyViewModel(
-                    fetchQuestionUseCaseProvider.get(),
-                    savedStateHandle
-            );
-        } else if (modelClass.isAssignableFrom(MyViewModel2.class)) {
-            return (T) new MyViewModel2(
-                    fetchQuestionUseCaseProvider.get()
-            );
-        } else {
+        Provider<? extends ViewModel> provider = providers.get(modelClass);
+        if (provider == null) {
             throw new RuntimeException("Unsupported ViewModel type: " + modelClass);
         }
+
+        ViewModel viewModel = provider.get();
+
+        if (viewModel instanceof SavedStateViewModel) {
+            ((SavedStateViewModel) viewModel).init(savedStateHandle);
+        }
+
+        return (T) viewModel;
     }
 }

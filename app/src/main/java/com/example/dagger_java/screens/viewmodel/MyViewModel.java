@@ -14,24 +14,23 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MyViewModel extends ViewModel {
+public class MyViewModel extends SavedStateViewModel {
 
     private final FetchQuestionUseCase fetchQuestionUseCase;
-    private final SavedStateHandle savedStateHandle;
 
     private MutableLiveData<List<Question>> _question;
-    public LiveData<List<Question>> question;
-
-    @Inject
-    public MyViewModel(FetchQuestionUseCase fetchQuestionUseCase, SavedStateHandle savedStateHandle) {
-        this.fetchQuestionUseCase = fetchQuestionUseCase;
-        this.savedStateHandle = savedStateHandle;
-        init();
+    public LiveData<List<Question>> question(){
+        return _question;
     }
 
-    private void init(){
+    @Inject
+    public MyViewModel(FetchQuestionUseCase fetchQuestionUseCase) {
+        this.fetchQuestionUseCase = fetchQuestionUseCase;
+    }
+
+    @Override
+    void init(SavedStateHandle savedStateHandle) {
         _question = savedStateHandle.getLiveData("questions", Collections.emptyList());
-        question = _question;
 
         fetchQuestionUseCase.fetchQuestions(result -> {
             if(result instanceof FetchQuestionUseCase.Result.Success){
