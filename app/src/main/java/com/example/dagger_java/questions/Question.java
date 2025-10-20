@@ -2,7 +2,9 @@ package com.example.dagger_java.questions;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Question {
+import java.io.Serializable;
+
+public class Question implements Serializable {
     @SerializedName("title")
     private String title;
     @SerializedName("question_id")
