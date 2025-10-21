@@ -29,7 +29,7 @@ public class MyViewModel extends SavedStateViewModel {
     }
 
     @Override
-    void init(SavedStateHandle savedStateHandle) {
+    protected void init(SavedStateHandle savedStateHandle) {
         _question = savedStateHandle.getLiveData("questions", Collections.emptyList());
 
         fetchQuestionUseCase.fetchQuestions(result -> {

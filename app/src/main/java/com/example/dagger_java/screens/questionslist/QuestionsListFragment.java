@@ -1,6 +1,8 @@
 package com.example.dagger_java.screens.questionslist;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,8 +78,9 @@ public class QuestionsListFragment extends BaseFragment implements SwipeRefreshL
 
     private void fetchQuestions() {
         viewMvc.showProgressIndication();
-
-        fetchQuestionUseCase.fetchQuestions(this);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            fetchQuestionUseCase.fetchQuestions(this);
+        }, 2000);
     }
 
     private void onFetchFailed(){

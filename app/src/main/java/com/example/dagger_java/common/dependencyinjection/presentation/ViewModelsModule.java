@@ -3,6 +3,7 @@ package com.example.dagger_java.common.dependencyinjection.presentation;
 import androidx.lifecycle.ViewModel;
 
 import com.example.dagger_java.common.dependencyinjection.ViewModelKey;
+import com.example.dagger_java.screens.questionslistviewmodel.QuestionsListViewModel;
 import com.example.dagger_java.screens.viewmodel.MyViewModel;
 import com.example.dagger_java.screens.viewmodel.MyViewModel2;
 
@@ -20,4 +21,9 @@ abstract class ViewModelsModule {
     @IntoMap
     @ViewModelKey(MyViewModel2.class)
     abstract ViewModel myViewModel2(MyViewModel2 myViewModel2);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(QuestionsListViewModel.class)
+    abstract ViewModel questionsListViewModel(QuestionsListViewModel questionsListViewModel);
 }
