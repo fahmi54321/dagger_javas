@@ -21,6 +21,9 @@ import com.example.dagger_java.screens.common.viewsmvc.ViewMvcFactory;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class QuestionsListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, QuestionsListViewMvc.Listener, FetchQuestionUseCase.FetchCallback {
 
 
@@ -43,8 +46,6 @@ public class QuestionsListFragment extends BaseFragment implements SwipeRefreshL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        injector().inject(this);
 
     }
 

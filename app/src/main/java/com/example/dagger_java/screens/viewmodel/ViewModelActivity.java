@@ -16,6 +16,9 @@ import com.example.dagger_java.screens.activities.BaseActivity;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ViewModelActivity extends BaseActivity {
 
     @Inject
@@ -23,7 +26,6 @@ public class ViewModelActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        injector().inject(this);
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_view_model);

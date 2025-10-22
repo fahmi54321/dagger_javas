@@ -21,6 +21,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class QuestionsListViewModelActivity extends BaseActivity implements QuestionsListView.Listener, SwipeRefreshLayout.OnRefreshListener {
 
     private QuestionsListView viewMvc;
@@ -43,7 +46,6 @@ public class QuestionsListViewModelActivity extends BaseActivity implements Ques
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        injector().inject(this);
         viewMvc = viewMvcFactory.newQuestionsListView(null);
         setContentView(viewMvc.rootView);
 

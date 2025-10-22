@@ -18,6 +18,10 @@ import com.example.dagger_java.screens.common.viewsmvc.ViewMvcFactory;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+
+@AndroidEntryPoint
 public class QuestionDetailsFragment extends BaseFragment implements MyToolbar.NavigateUpListener, QuestionDetailsMvc.Listener, FetchQuestionDetailsUseCase.FetchCallback {
 
 
@@ -42,8 +46,6 @@ public class QuestionDetailsFragment extends BaseFragment implements MyToolbar.N
         super.onCreate(savedInstanceState);
 
         questionId = requireActivity().getIntent().getStringExtra("EXTRA_QUESTION_ID");
-
-        injector().inject(this);
 
         fetchQuestionDetailsUseCase.fetchQuestionDetails(questionId, this);
 
