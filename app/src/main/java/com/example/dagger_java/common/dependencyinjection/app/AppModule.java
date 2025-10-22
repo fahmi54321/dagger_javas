@@ -10,18 +10,14 @@ import com.example.dagger_java.networking.UrlProvider;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.components.SingletonComponent;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
+@InstallIn(SingletonComponent.class)
 public class AppModule {
-
-
-    private final Application application;
-
-    public AppModule(Application application) {
-        this.application = application;
-    }
 
     @Provides
     @AppScope
@@ -53,10 +49,5 @@ public class AppModule {
     @AppScope
     public StackoverflowApi stackoverflowApi(@Retrofit1 Retrofit retrofit){
         return retrofit.create(StackoverflowApi.class);
-    }
-
-    @Provides
-    public Application getApplication() {
-        return application;
     }
 }

@@ -9,9 +9,12 @@ import com.example.dagger_java.screens.viewmodel.MyViewModel2;
 
 import dagger.Binds;
 import dagger.Module;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ViewModelComponent;
 import dagger.multibindings.IntoMap;
 
 @Module
+@InstallIn(ViewModelComponent.class)
 abstract class ViewModelsModule {
     @Binds
     @IntoMap
