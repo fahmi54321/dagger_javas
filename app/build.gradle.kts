@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.hilt.application)
 }
 
 android {
@@ -48,9 +49,6 @@ dependencies {
     // swiperefreshlayout
     implementation(libs.swiperefreshlayout)
 
-    implementation (libs.dagger)
-    annotationProcessor(libs.dagger.compiler)
-
     implementation (libs.glide)
 
 //    debugImplementation(libs.leakcanary.android)
@@ -59,5 +57,8 @@ dependencies {
     implementation (libs.lifecycle.viewmodel)
 
     implementation (libs.lifecycle.viewmodel.savedstate)
+
+    implementation (libs.dagger.hilt.android)
+    annotationProcessor (libs.dagger.hilt.compiler)
 
 }
