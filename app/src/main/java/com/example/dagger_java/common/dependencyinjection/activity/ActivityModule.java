@@ -1,5 +1,6 @@
 package com.example.dagger_java.common.dependencyinjection.activity;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,11 @@ abstract class ActivityModule {
     @ActivityScoped
     @Binds
     abstract ScreensNavigator getScreensNavigator(ScreensNavigatorImpl screensNavigator);
+
+    @Provides
+    public static AppCompatActivity appCompatActivity(Activity activity){
+        return (AppCompatActivity) activity;
+    }
 
     @Provides
     public static FragmentManager getSupportFragmentManager(AppCompatActivity activity){
