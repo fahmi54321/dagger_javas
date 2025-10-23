@@ -14,9 +14,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MyViewModel extends SavedStateViewModel {
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
+public class MyViewModel extends ViewModel {
 
     private final FetchQuestionUseCase fetchQuestionUseCase;
+    private final SavedStateHandle savedStateHandle;
 
     private MutableLiveData<List<Question>> _question;
     public LiveData<List<Question>> question(){
@@ -24,12 +28,13 @@ public class MyViewModel extends SavedStateViewModel {
     }
 
     @Inject
-    public MyViewModel(FetchQuestionUseCase fetchQuestionUseCase) {
+    public MyViewModel(FetchQuestionUseCase fetchQuestionUseCase, SavedStateHandle savedStateHandle) {
         this.fetchQuestionUseCase = fetchQuestionUseCase;
+        this.savedStateHandle = savedStateHandle;
+        init();
     }
 
-    @Override
-    protected void init(SavedStateHandle savedStateHandle) {
+    private void init() {
         _question = savedStateHandle.getLiveData("questions", Collections.emptyList());
 
         fetchQuestionUseCase.fetchQuestions(result -> {

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import com.example.dagger_java.R;
 import com.example.dagger_java.screens.activities.BaseActivity;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class QuestionsListActivity extends BaseActivity {
 
     @Override

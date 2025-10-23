@@ -4,20 +4,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.dagger_java.R;
-import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.questions.Question;
 import com.example.dagger_java.screens.activities.BaseActivity;
 import com.example.dagger_java.screens.common.ScreensNavigator;
 import com.example.dagger_java.screens.common.dialogs.DialogsNavigator;
 import com.example.dagger_java.screens.common.viewsmvc.ViewMvcFactory;
-import com.example.dagger_java.screens.viewmodel.ViewModelFactory;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -40,9 +34,6 @@ public class QuestionsListViewModelActivity extends BaseActivity implements Ques
     @Inject
     public ViewMvcFactory viewMvcFactory;
 
-    @Inject
-    public ViewModelFactory viewModelFactory;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +46,7 @@ public class QuestionsListViewModelActivity extends BaseActivity implements Ques
     }
 
     private void initViewModel(){
-        viewModelQuestionsList = new ViewModelProvider(this, viewModelFactory).get(QuestionsListViewModel.class);
+        viewModelQuestionsList = new ViewModelProvider(this).get(QuestionsListViewModel.class);
     }
 
     private void observer(){

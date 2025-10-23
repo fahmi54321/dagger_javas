@@ -1,25 +1,27 @@
 package com.example.dagger_java.screens.questionslistviewmodel;
 
 
-import android.os.Looper;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.ViewModel;
 
 import com.example.dagger_java.questions.FetchQuestionUseCase;
 import com.example.dagger_java.questions.Question;
-import com.example.dagger_java.screens.viewmodel.SavedStateViewModel;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Handler;
 
 import javax.inject.Inject;
 
-public class QuestionsListViewModel extends SavedStateViewModel {
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
+public class QuestionsListViewModel extends ViewModel {
 
     public FetchQuestionUseCase fetchQuestionUseCase;
+
+    private final SavedStateHandle savedStateHandle;
 
     private MutableLiveData<List<Question>> _questions;
     private final MutableLiveData<Boolean> _isDataLoaded = new MutableLiveData<>(false);
@@ -43,12 +45,13 @@ public class QuestionsListViewModel extends SavedStateViewModel {
     }
 
     @Inject
-    public QuestionsListViewModel(FetchQuestionUseCase fetchQuestionUseCase) {
+    public QuestionsListViewModel(FetchQuestionUseCase fetchQuestionUseCase, SavedStateHandle savedStateHandle) {
         this.fetchQuestionUseCase = fetchQuestionUseCase;
+        this.savedStateHandle = savedStateHandle;
+        init();
     }
 
-    @Override
-    protected void init(SavedStateHandle savedStateHandle) {
+    private void init() {
         _questions = savedStateHandle.getLiveData("questions", Collections.emptyList());
     }
 

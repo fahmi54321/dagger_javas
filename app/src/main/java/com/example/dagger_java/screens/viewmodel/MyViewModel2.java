@@ -6,6 +6,9 @@ import com.example.dagger_java.questions.FetchQuestionUseCase;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class MyViewModel2 extends ViewModel {
 
     private final FetchQuestionUseCase fetchQuestionUseCase;

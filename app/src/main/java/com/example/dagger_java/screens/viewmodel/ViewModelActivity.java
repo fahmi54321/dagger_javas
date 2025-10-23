@@ -21,9 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ViewModelActivity extends BaseActivity {
 
-    @Inject
-    public ViewModelFactory viewModelFactory;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +32,8 @@ public class ViewModelActivity extends BaseActivity {
             return insets;
         });
 
-        MyViewModel myViewModel = new ViewModelProvider(this, viewModelFactory).get(MyViewModel.class);
-        MyViewModel2 myViewModel2 = new ViewModelProvider(this, viewModelFactory).get(MyViewModel2.class);
+        MyViewModel myViewModel = new ViewModelProvider(this).get(MyViewModel.class);
+        MyViewModel2 myViewModel2 = new ViewModelProvider(this).get(MyViewModel2.class);
         myViewModel.question().observe(this, questions -> Toast.makeText(ViewModelActivity.this, "fetched :"+questions.size(), Toast.LENGTH_SHORT).show());
     }
 
